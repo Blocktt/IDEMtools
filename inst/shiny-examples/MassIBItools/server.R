@@ -185,7 +185,7 @@ shinyServer(function(input, output, session) {
             sink(file_sink, type = "output", append = TRUE)
             sink(file_sink, type = "message", append = TRUE)
             # Log
-            message("Results Log from MassIBItools Shiny App")
+            message("Results Log from IDEMtools Shiny App")
             message(Sys.time())
             inFile <- input$fn_input
             message(paste0("file = ", inFile$name))
@@ -250,9 +250,6 @@ shinyServer(function(input, output, session) {
             incProgress(1/n_inc, detail = "Calculate, Metrics (takes ~ 30-45s)")
             Sys.sleep(0.5)
 
-            # prior to metric calculation, we need to add columns that aren't part of the dataset but need to be in the input dataframe
-            # otherwise, metric.values.MI () will produce an error when on shinyapps.io (dated 2020-07-30)
-
             # convert Field Names to UPPER CASE
             names(df_data) <- toupper(names(df_data))
 
@@ -274,28 +271,26 @@ shinyServer(function(input, output, session) {
 
             # create long name version of Index Regions for client comprehension
 
-            df_data$INDEX_REGION_LONG <- ifelse(df_data$INDEX_REGION == "KickIBI_CH_300ct", "Central_Hills_300ct",
-                                                ifelse(df_data$INDEX_REGION == "KickIBI_CH_100ct", "Central_Hills_100ct",
-                                                       ifelse(df_data$INDEX_REGION == "KickIBI_WH_300ct", "Western_Highlands_300ct",
-                                                              ifelse(df_data$INDEX_REGION == "KickIBI_WH_100ct", "Western_Highlands_100ct",
-                                                                     "Statewide_Low_Gradient"))))
+            df_data$INDEX_REGION_LONG <- ifelse(df_data$INDEX_REGION == "Bugs_N", "Northern",
+                                                ifelse(df_data$INDEX_REGION == "Bugs_NC", "North_Central",
+                                                       ifelse(df_data$INDEX_REGION == "Bugs_SW", "Southwest",
+                                                              ifelse(df_data$INDEX_REGION == "Bugs_SE", "Southeast",
+                                                                     "Unknown"))))
 
             # columns to keep
             keep_cols <- c("Lat", "Long", "STATIONID", "COLLDATE", "COLLMETH", "INDEX_REGION_LONG")
 
             # metric calculation
-            #df_metval <- suppressWarnings(metric.values.MA(fun.DF = df_data, fun.Community = "bugs",
-             #                                              fun.MetricNames = MassMetrics, fun.cols2keep=keep_cols, boo.Shiny = TRUE))
 
-            df_metval <- suppressWarnings(metric.values(fun.DF = df_data, fun.Community = "bugs",
-                                                           fun.MetricNames = MassMetrics, fun.cols2keep=keep_cols, boo.Shiny = TRUE))
+            Community <- "bugs"
+            myCommunity <- Community
 
-            df_metval <- df_metval %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "LOWGRADIENTIBI", "LowGradientIBI")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_CH_300CT", "KickIBI_CH_300ct")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_CH_100CT", "KickIBI_CH_100ct")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_WH_300CT", "KickIBI_WH_300ct")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_WH_100CT", "KickIBI_WH_100ct"))
+            ifelse(myCommunity == "bugs",
+                   myMetrics <- BugMetrics,
+                   myMetrics <- FishMetrics)
+
+            df_metval <- suppressWarnings(metric.values(fun.DF = df_data, fun.Community = myCommunity,
+                                                        fun.MetricNames = myMetrics, fun.cols2keep=keep_cols, boo.Shiny = TRUE))
 
 
             # Increment the progress bar, and update the detail text.
@@ -331,18 +326,10 @@ shinyServer(function(input, output, session) {
             df_thresh_index <- read_excel(fn_thresh, sheet="index.scoring")
 
             # run scoring code
-            df_metsc <- metric.scores(DF_Metrics = df_metval, col_MetricNames = MassMetrics,
+            df_metsc <- metric.scores(DF_Metrics = df_metval, col_MetricNames = myMetrics,
                                                    col_IndexName = "INDEX_NAME", col_IndexRegion = "INDEX_REGION",
                                                    DF_Thresh_Metric = df_thresh_metric, DF_Thresh_Index = df_thresh_index,
                                                    col_ni_total = "ni_total")
-
-            df_metsc <- df_metsc %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "LOWGRADIENTIBI", "LowGradientIBI")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_CH_300CT", "KickIBI_CH_300ct")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_CH_100CT", "KickIBI_CH_100ct")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_WH_300CT", "KickIBI_WH_300ct")) %>%
-              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "KICKIBI_WH_100CT", "KickIBI_WH_100ct"))
-
 
             # Save
             # fn_metsc <- file.path(".", "Results", "results_metsc.tsv")
@@ -360,7 +347,7 @@ shinyServer(function(input, output, session) {
             Sys.sleep(0.75)
 
             # Render Summary Report (rmarkdown file)
-            rmarkdown::render(input = file.path(".", "Extras", "Summary_MA.rmd"), output_format = "word_document",
+            rmarkdown::render(input = file.path(".", "Extras", "Summary_IN.rmd"), output_format = "word_document",
                               output_dir = file.path(".", "Results"), output_file = "results_summary_report", quiet = TRUE)
 
             # Increment the progress bar, and update the detail text.

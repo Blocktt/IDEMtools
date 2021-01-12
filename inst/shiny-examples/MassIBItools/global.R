@@ -31,13 +31,9 @@ Community <- c("bugs")
 # setting this option. Here we'll raise limit to 10MB.
 options(shiny.maxRequestSize = 25*1024^2)
 
-# source function from metric.values.MI.R
-source(file.path(".", "external", "metric.values.MA.R"))
-
-
 # define which metrics michigan wants to keep in indices
 
-MassMetrics <- c("nt_total"
+BugMetrics <- c("nt_total"
                  ,"pi_EphemNoCaeBae"
                  ,"pi_ffg_filt"
                  ,"pi_ffg_shred"
@@ -51,8 +47,23 @@ MassMetrics <- c("nt_total"
                  ,"pt_tv_intol"
                  ,"pt_tv_toler"
                  ,"pt_volt_semi"
-                 ,"x_Becks")# END MassMetricss
+                 ,"x_Becks")# END BugMetrics
 
+FishMetrics <- c("nt_total"
+                ,"pi_EphemNoCaeBae"
+                ,"pi_ffg_filt"
+                ,"pi_ffg_shred"
+                ,"pi_OET"
+                ,"pi_Pleco"
+                ,"pi_tv_intol"
+                ,"pt_EPT"
+                ,"pt_ffg_pred"
+                ,"pt_NonIns"
+                ,"pt_POET"
+                ,"pt_tv_intol"
+                ,"pt_tv_toler"
+                ,"pt_volt_semi"
+                ,"x_Becks")# END FishMetrics
 
 #### GIS/Map data ####
 
