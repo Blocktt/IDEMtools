@@ -3,27 +3,27 @@
 
 <div id="instructions" class="section level1">
 <h1>Instructions</h1>
-<p>MassIBItools was developed to calculate benthic macroinvertebrate metrics and Indices of Biotic Integrity (IBI) for wadeable, freshwater, perennial streams in Massachusetts. Detailed documentation of IBI development can be downloaded <a href="https://github.com/Blocktt/MassIBItools/tree/master/reports">here</a>. Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.</p>
+<p>IDEMtools was developed to calculate fish and benthic macroinvertebrate metrics and Indices of Biotic Integrity (IBI) for wadeable and boatable, freshwater, perennial streams in Indiana. Detailed documentation of IBI development can be downloaded <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">here</a>. Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.</p>
 <p>The Instructions are divided into three sections: 1) preparing the input file; 2) app operation; and 3) frequently asked questions (FAQ). Links to an example input file and a document containing more detailed information on preparing the input file are also provided.</p>
 <p>This app was developed by Ben Block from Tetra Tech, Inc. (<a href="mailto:Ben.Block@tetratech.com" class="email">Ben.Block@tetratech.com</a>), with underlying R code written by Ben Block and Erik Leppo (<a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a>). Please contact Ben Block should any issues or questions arise.</p>
 <div id="foreword" class="section level2">
 <h2>Foreword</h2>
-<p>Tetra Tech, Inc. developed the MassIBItools shiny app for the Massachusetts Department of Environmental Protection (MassDEP). It allows MassDEP and their partners to calculate IBI scores for benthic macroinvertebrate samples. The new IBIs will improve MassDEP’s diagnostic ability to identify degradation in biological integrity and water quality. The app is streamlined and easy to operate, and only requires an input dataset to function. Shiny apps are interactive web applications that serve as graphical user interfaces. They are linked to R, which is an open source programming language and software environment for statistical computing.</p>
+<p>Tetra Tech, Inc. developed the IDEMtools shiny app for the Indiana Department of Environmental Management (IDEM). It allows IDEM and their partners to calculate IBI scores for fish and benthic macroinvertebrate samples. The new IBIs will improve IDEM’s diagnostic ability to identify degradation in biological integrity and water quality. The app is streamlined and easy to operate, and only requires an input dataset to function. Shiny apps are interactive web applications that serve as graphical user interfaces. They are linked to R, which is an open source programming language and software environment for statistical computing.</p>
 </div>
 <div id="preparing-the-input-file" class="section level2">
 <h2>Preparing the input file</h2>
-<p>MassIBItools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).</p>
-<p>Click here to view an <a href="https://github.com/Blocktt/MassIBItools/tree/master/inst/shiny-examples/MassIBItools/Examples">EXAMPLE INPUT FILE</a>.</p>
+<p>IDEMtools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).</p>
+<p>Click here to view an <a href="https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/MassIBItools/Examples">EXAMPLE INPUT FILE</a>.</p>
 <p>If you are unsure how to download a data file from GitHub, <a href="https://www.youtube.com/watch?v=GIJdfuAoqFI">watch this short video</a> or contact Ben Block (<a href="mailto:ben.block@tetratech.com" class="email">ben.block@tetratech.com</a>).</p>
 <p>It is important that the input data be prepared in a way that is consistent with how the data were prepared for calibration of the IBIs. For example, if you use a different level of taxonomic resolution (family vs. species-level) or trait assignments differ (e.g., Functional Feeding Groups do not match), this will affect the results. To ensure consistency, perform the following steps when preparing your input file:</p>
 <ul>
-<li>Check the taxa names in your input file against the ‘TAXAID’ field in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">TaxaTranslator table</a>. Ideally the names match (but this is not required). The TAXAID field is included in the Taxa Attribute tables, which have trait assignments, phylogeny and other fields required in your input file. Contact Jen Stamp (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>) if you need assistance with checking your taxa list and using the Taxa Attribute tables.</li>
+<li>Check the taxa names in your input file against the ‘TAXAID’ field in the <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">TaxaTranslator table</a>. Ideally the names match (but this is not required). The TAXAID field is included in the Taxa Attribute tables, which have trait assignments, phylogeny and other fields required in your input file. Contact Jen Stamp (<a href="mailto:Jen.Stamp@tetratech.com" class="email">Jen.Stamp@tetratech.com</a>) if you need assistance with checking your taxa list and using the Taxa Attribute tables.</li>
 <li>Remove any rows that have 0 individuals (e.g., Large/Rare taxa entries)</li>
 <li>For each taxon, there should only be one entry per sample. For example, if entries are broken out by life stage (e.g., larvae, pupae), they should be ‘collapsed’ into one row per taxon/sample (by summing the individuals and deleting the life stage field)</li>
-<li>Check the total number of individuals. Perform random subsampling if needed. For example, if you want to apply a 100-count kick IBI but have a 300-count sample, first reduce the total count of individuals to 100. We used a 20% target when determining whether to subsample (in other words, we subsampled if &gt;120 total individuals were in a 100-count sample or if &gt;360 total individuals were in a 300-count sample).</li>
-<li>Use NonTarget taxa designations and trait assignments (FFG, tolerance value, life cycle) that match with those in the appropriate <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">TaxaAttribute tables</a>. Taxa tolerance values differ slightly in low gradient vs. higher gradient (kick net) streams; thus, we created separate attribute tables for each stream type.</li>
-<li>Mark redundant (nondistinct) taxa in each sample in a way that is consistent with the criteria described in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">ExcludeDecisionCriteria</a> document.</li>
-<li>Make sure you select the correct IBI for each sample and enter it into the ‘INDEX_REGION’ field. There are five options: KickIBI_CH_100ct, KickIBI_CH_300ct, KickIBI_WH_100ct, KickIBI_WH_300ct, or LowGradientIBI. All low gradient/multihab samples should be run through the (statewide) LowGradientIBI. IBIs for the kick net samples vary depending on the region (Central Hills (CT) or Western Highlands (WH) and subsample size (100 or 300-organism samples). If you have access to GIS software, <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">click here to download a GIS shapefile of the two regions (CT and WH)</a>.</li>
+<li>Check the total number of individuals. Perform random subsampling if needed.</li>
+<li>Use NonTarget taxa designations and trait assignments (FFG, tolerance value, life cycle) that match with those in the appropriate <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">TaxaAttribute tables</a>.</li>
+<li>Mark redundant (nondistinct) taxa in each sample in a way that is consistent with the criteria described in the <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">ExcludeDecisionCriteria</a> document.</li>
+<li>Make sure you select the correct IBI for each sample and enter it into the ‘INDEX_REGION’ field. There are currently eight options: Bugs_N, Bugs_NC, Bugs_SW, Bugs_SE, Fish_WS, Fish_WL, Fish_BL, Fish_BH.</li>
 </ul>
 <p>You are now ready to run your file through the IBI calculator!</p>
 <div id="table-1.-list-of-required-fields.-column-names-must-be-capitalized-and-match-the-spelling-and-symbology-exactly-as-shown." class="section level3">
@@ -57,13 +57,13 @@ INDEX_NAME
 text
 </td>
 <td style="text-align:left;">
-MassDEP_2020_Bugs
+IDEM_2017_Bugs or IDEM_2017_Fish
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:left;">
-Only one allowable entry (MassDEP_2020_Bugs).
+Only two allowable entries (IDEM_2017_Bugs or IDEM_2017_Fish).
 </td>
 </tr>
 <tr>
@@ -74,7 +74,7 @@ INDEX_REGION
 text
 </td>
 <td style="text-align:left;">
-KickIBI_CH_100ct, KickIBI_CH_300ct, KickIBI_WH_100ct, KickIBI_WH_300ct, LowGradientIBI
+Bugs_N, Bugs_NC, Bugs_SW, Bugs_SE, Fish_WS, Fish_WL, Fish_BL, Fish_BH
 </td>
 <td style="text-align:left;">
 No
@@ -199,7 +199,7 @@ NA
 No
 </td>
 <td style="text-align:left;">
-Taxonomic identification of organisms in each sample. See <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">TaxaTranslator table</a>.
+Taxonomic identification of organisms in each sample. See <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">TaxaTranslator table</a>.
 </td>
 </tr>
 <tr>
@@ -233,7 +233,7 @@ TRUE, FALSE
 No
 </td>
 <td style="text-align:left;">
-Redundant (non-distinct) taxa should marked “TRUE”. Criteria for designating redundant taxa should be consistent with the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">ExcludeDecisionCriteria document</a>.
+Redundant (non-distinct) taxa should marked “TRUE”. Criteria for designating redundant taxa should be consistent with the <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">ExcludeDecisionCriteria document</a>.
 </td>
 </tr>
 <tr>
@@ -250,7 +250,7 @@ TRUE, FALSE
 No
 </td>
 <td style="text-align:left;">
-Non-target taxa should be marked “TRUE”. Designations should match with those in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">Taxa Attribute tables</a>.
+Non-target taxa should be marked “TRUE”. Designations should match with those in the <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">Taxa Attribute tables</a>.
 </td>
 </tr>
 <tr>
@@ -284,7 +284,7 @@ NA
 Yes
 </td>
 <td style="text-align:left;">
-This entry affects the non-insect metric calculation for the low gradient IBI. Insect/non-insect designations should match with those in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">Taxa Attribute tables</a>.
+NA
 </td>
 </tr>
 <tr>
@@ -301,7 +301,7 @@ NA
 Yes
 </td>
 <td style="text-align:left;">
-Several IBI metrics are based on Order (e.g., % EPT taxa). Entries should be consistent with the phylogeny in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">Taxa Attribute tables</a>.
+Several IBI metrics are based on Order (e.g., % EPT taxa). Entries should be consistent with the phylogeny in the <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">Taxa Attribute tables</a>.
 </td>
 </tr>
 <tr>
@@ -318,7 +318,7 @@ NA
 Yes
 </td>
 <td style="text-align:left;">
-The ‘% Ephemeroptera, excluding Caenidae and Baetidae’ metric (from the CH kick net IBIs) is partly based on Family. Entries should be consistent with the phylogeny in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">Taxa Attribute tables</a>.
+Entries should be consistent with the phylogeny in the <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">Taxa Attribute tables</a>.
 </td>
 </tr>
 <tr>
@@ -386,7 +386,7 @@ CG, CF, PR, SC, SH (select one)
 Yes
 </td>
 <td style="text-align:left;">
-Primary Functional Feeding Group. One entry only: collector-gatherer (CG), collector-filterer (CF), predator (PR), scraper (SC), or shredder (SH). At least one FFG metric is in each IBI. FFG trait assignments should match with those in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">Taxa Attribute tables</a>.
+Primary Functional Feeding Group. Choose from, can have multiple entries separated by comma: collector-gatherer (CG), collector-filterer (CF), predator (PR), scraper (SC), or shredder (SH). FFG trait assignments should match with those in the <a href="https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep">Taxa Attribute tables</a>.
 </td>
 </tr>
 <tr>
@@ -403,7 +403,7 @@ number ranging from 0-10
 Yes
 </td>
 <td style="text-align:left;">
-Taxa with tolerance values ranging from 0 to 3 are considered ‘intolerant’ to anthropogenic disturbance and are included in the ‘intolerant’ metric calculations. Those with values ranging from 7 to 10 are included in the ‘tolerant’ metrics. Tolerance value assignments are slightly different in low gradient vs high gradient (kick net method) streams, and should match with those in the appropriate <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">Taxa Attribute tables</a>. Make sure you use the appropriate tolerance values. Use TaxaAttribute_MULTI for multihabitat IBI and TaxaAttribute_KICK for Kick IBIs.
+Taxa with tolerance values ranging from 0 to 3 are considered ‘intolerant’ to anthropogenic disturbance and are included in the ‘intolerant’ metric calculations. Those with values ranging from 7 to 10 are included in the ‘tolerant’ metrics.
 </td>
 </tr>
 <tr>
@@ -420,7 +420,7 @@ uni, semi, multi (select one)
 Yes
 </td>
 <td style="text-align:left;">
-Number of broods or generations of an organism in a year (also referred to as ‘voltinism’): univoltine (UNI), semivoltine (SEMI), or multivoltine (MULTI). One metric (% semivoltine taxa in the low gradient IBI) is based on life cycle. Trait assignments should match with those in the <a href="https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep">Taxa Attribute tables</a>.
+Number of broods or generations of an organism in a year (also referred to as ‘voltinism’): univoltine (UNI), semivoltine (SEMI), or multivoltine (MULTI).
 </td>
 </tr>
 </tbody>
@@ -433,7 +433,7 @@ Number of broods or generations of an organism in a year (also referred to as �
 <ol style="list-style-type: decimal">
 <li><p>Load file</p>
 <ul>
-<li>An example input file can be downloaded from Github <a href="https://github.com/Blocktt/MassIBItools/tree/master/inst/shiny-examples/MassIBItools/Examples">EXAMPLE LINK</a></li>
+<li>An example input file can be downloaded from Github <a href="https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/MassIBItools/Examples">EXAMPLE LINK</a></li>
 <li>Choose Separator. The separator indicates how the data is stored. Comma indicates the input file is a comma-separated file (.csv). Tab indicates the input file is a tab-separated file (.txt or .tsv). Finally, Semicolon indicates the input file is a semicolon-separated file which is uncommon in the United States but common in Western-European countries. Be certain that the designated separator is not used in any of the text fields (e.g., for multiple FFG, separate with a semicolon).</li>
 <li>Choose Quote. The quote indicates how the data is stored. Double quote is the most common.</li>
 <li>Choose file to upload. Hit the browse button and search for the input file.</li>

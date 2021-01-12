@@ -19,31 +19,31 @@ if(boo_DEBUG==TRUE){
 
 # Instructions
 
-MassIBItools was developed to calculate benthic macroinvertebrate metrics and Indices of Biotic Integrity (IBI) for wadeable, freshwater, perennial streams in Massachusetts. Detailed documentation of IBI development can be downloaded [here](https://github.com/Blocktt/MassIBItools/tree/master/reports). Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.
+IDEMtools was developed to calculate fish and benthic macroinvertebrate metrics and Indices of Biotic Integrity (IBI) for wadeable and boatable, freshwater, perennial streams in Indiana. Detailed documentation of IBI development can be downloaded [here](https://github.com/Blocktt/IDEMtools/tree/main/reports). Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.
 
 The Instructions are divided into three sections: 1) preparing the input file; 2) app operation; and 3) frequently asked questions (FAQ). Links to an example input file and a document containing more detailed information on preparing the input file are also provided.
 
 This app was developed by Ben Block from Tetra Tech, Inc. (Ben.Block@tetratech.com), with underlying R code written by Ben Block and Erik Leppo (Erik.Leppo@tetratech.com). Please contact Ben Block should any issues or questions arise.
 
 ## Foreword
-Tetra Tech, Inc. developed the MassIBItools shiny app for the Massachusetts Department of Environmental Protection (MassDEP). It allows MassDEP and their partners to calculate IBI scores for benthic macroinvertebrate samples. The new IBIs will improve MassDEP’s diagnostic ability to identify degradation in biological integrity and water quality. The app is streamlined and easy to operate, and only requires an input dataset to function. Shiny apps are interactive web applications that serve as graphical user interfaces. They are linked to R, which is an open source programming language and software environment for statistical computing.
+Tetra Tech, Inc. developed the IDEMtools shiny app for the Indiana Department of Environmental Management (IDEM). It allows IDEM and their partners to calculate IBI scores for fish and benthic macroinvertebrate samples. The new IBIs will improve IDEM’s diagnostic ability to identify degradation in biological integrity and water quality. The app is streamlined and easy to operate, and only requires an input dataset to function. Shiny apps are interactive web applications that serve as graphical user interfaces. They are linked to R, which is an open source programming language and software environment for statistical computing.
 
 ## Preparing the input file
-MassIBItools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).
+IDEMtools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).
 
-Click here to view an [EXAMPLE INPUT FILE](https://github.com/Blocktt/MassIBItools/tree/master/inst/shiny-examples/MassIBItools/Examples).
+Click here to view an [EXAMPLE INPUT FILE](https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/MassIBItools/Examples).
 
 If you are unsure how to download a data file from GitHub, [watch this short video](https://www.youtube.com/watch?v=GIJdfuAoqFI) or contact Ben Block (ben.block@tetratech.com).
 
 It is important that the input data be prepared in a way that is consistent with how the data were prepared for calibration of the IBIs. For example, if you use a different level of taxonomic resolution (family vs. species-level) or trait assignments differ (e.g., Functional Feeding Groups do not match), this will affect the results. To ensure consistency, perform the following steps when preparing your input file:
 
-* Check the taxa names in your input file against the ‘TAXAID’ field in the [TaxaTranslator table](https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep). Ideally the names match (but this is not required). The TAXAID field is included in the Taxa Attribute tables, which have trait assignments, phylogeny and other fields required in your input file. Contact Jen Stamp (Jen.Stamp@tetratech.com) if you need assistance with checking your taxa list and using the Taxa Attribute tables.
+* Check the taxa names in your input file against the ‘TAXAID’ field in the [TaxaTranslator table](https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep). Ideally the names match (but this is not required). The TAXAID field is included in the Taxa Attribute tables, which have trait assignments, phylogeny and other fields required in your input file. Contact Jen Stamp (Jen.Stamp@tetratech.com) if you need assistance with checking your taxa list and using the Taxa Attribute tables.
 * Remove any rows that have 0 individuals (e.g., Large/Rare taxa entries)
 * For each taxon, there should only be one entry per sample. For example, if entries are broken out by life stage (e.g., larvae, pupae), they should be ‘collapsed’ into one row per taxon/sample (by summing the individuals and deleting the life stage field)
-* Check the total number of individuals. Perform random subsampling if needed. For example, if you want to apply a 100-count kick IBI but have a 300-count sample, first reduce the total count of individuals to 100. We used a 20% target when determining whether to subsample (in other words, we subsampled if >120 total individuals were in a 100-count sample or if >360 total individuals were in a 300-count sample). 
-* Use NonTarget taxa designations and trait assignments (FFG, tolerance value, life cycle) that match with those in the appropriate  [TaxaAttribute tables](https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep). Taxa tolerance values differ slightly in low gradient vs. higher gradient (kick net) streams; thus, we created separate attribute tables for each stream type.
-* Mark redundant (nondistinct) taxa in each sample in a way that is consistent with the criteria described in the [ExcludeDecisionCriteria](https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep) document.
-* Make sure you select the correct IBI for each sample and enter it into the ‘INDEX_REGION’ field. There are five options: KickIBI_CH_100ct, KickIBI_CH_300ct, KickIBI_WH_100ct, KickIBI_WH_300ct, or LowGradientIBI. All low gradient/multihab samples should be run through the (statewide) LowGradientIBI. IBIs for the kick net samples vary depending on the region (Central Hills (CT) or Western Highlands (WH) and subsample size (100 or 300-organism samples). If you have access to GIS software, [click here to download a GIS shapefile of the two regions (CT and WH)](https://github.com/Blocktt/MassIBItools/tree/master/Data_Prep).
+* Check the total number of individuals. Perform random subsampling if needed.
+* Use NonTarget taxa designations and trait assignments (FFG, tolerance value, life cycle) that match with those in the appropriate  [TaxaAttribute tables](https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep).
+* Mark redundant (nondistinct) taxa in each sample in a way that is consistent with the criteria described in the [ExcludeDecisionCriteria](https://github.com/Blocktt/IDEMtools/tree/main/Data_Prep) document.
+* Make sure you select the correct IBI for each sample and enter it into the ‘INDEX_REGION’ field. There are currently eight options: Bugs_N, Bugs_NC, Bugs_SW, Bugs_SE, Fish_WS, Fish_WL, Fish_BL, Fish_BH.
 
 You are now ready to run your file through the IBI calculator!
 
@@ -55,7 +55,7 @@ library(kableExtra)
 # state directories
 table.dir <- "tables"
 table.file <- "Instruction_Tables.xlsx"
-tab1.dir <- "Instr_table2"
+tab1.dir <- "Instr_Table"
 
 table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
                      , na = c("NA", ""), trim_ws = TRUE, skip = 0
@@ -73,7 +73,7 @@ table1 %>%
 Once open, the user will see the IBI calculator interface. The user should follow the onscreen instructions as follows:
 
 1. Load file
-    + An example input file can be downloaded from Github [EXAMPLE LINK](https://github.com/Blocktt/MassIBItools/tree/master/inst/shiny-examples/MassIBItools/Examples)
+    + An example input file can be downloaded from Github [EXAMPLE LINK](https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/MassIBItools/Examples)
     + Choose Separator. The separator indicates how the data is stored. Comma indicates the input file is a comma-separated file (.csv). Tab indicates the input file is a tab-separated file (.txt or .tsv). Finally, Semicolon indicates the input file is a semicolon-separated file which is uncommon in the United States but common in Western-European countries. Be certain that the designated separator is not used in any of the text fields (e.g., for multiple FFG, separate with a semicolon).
     + Choose Quote. The quote indicates how the data is stored. Double quote is the most common.
     + Choose file to upload. Hit the browse button and search for the input file. 
