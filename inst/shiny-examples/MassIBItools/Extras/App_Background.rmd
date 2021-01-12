@@ -1,0 +1,139 @@
+---
+title: "Background Information"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Background
+Indices of Biotic Integrity (IBIs) were developed for macroinvertebrate assemblages in wadeable, freshwater, perennial streams in Massachusetts. There are currently five IBIs –
+
+* Western Highlands kick net IBI (100-count)
+* Western Highlands kick net IBI (300-count)
+* Central Hills kick net IBI (100-count)
+* Central Hills kick net IBI (300-count)
+* Statewide low gradient (multihab) IBI (300-count)
+
+The southeast portion of Massachusetts, which includes the Narragansett/Bristol Lowlands, Cape Cod, and the Islands, had insufficient data to develop an IBI for kick net samples at this time.
+
+Reports detailing the development of the kick and low gradient IBIs can be found [here](https://github.com/Blocktt/MassIBItools/tree/master/reports).
+
+## Intended application
+The IBIs are intended to be applied to samples collected from freshwater, perennial, wadeable streams in Massachusetts using the MassDEP kick net or multihabitat sampling methods. MassDEP samples are collected between July 1–September 30, using a kick-net with 500 μm mesh and a 46 cm wide opening. Organisms are identified to the lowest practical level in the laboratory. 
+
+The kick net samples are collected from riffle/run areas in streams with fast currents and rocky substrate. Multihabitat samples are collected from low gradient, slow moving streams with soft or hard substrate, from the following habitats (in proportion to their occurrence): snags, root wads, leaf packs, aquatic macrophytes, undercut banks, overhanging vegetation, or hard bottom. With both collection methods, 10 kicks, sweeps, and/or jabs are taken over a 100-m reach and then combined into a single sample. 
+
+If you apply the IBIs to samples that do not meet the criteria listed above, results should be interpreted with caution.
+
+## Input metrics and scoring formulae
+Kick net IBIs were calibrated for two regions - the Western Highlands (WH) and Central Hills (CH) (shown in Figure 1) – using 100-count or 300-count samples. The low gradient IBI, which can be applied statewide (as well as in Rhode Island), was calibrated with 300-count samples. Tables 1-5 show the input metrics and scoring formulae for the three IBIs. 
+
+### Table 1. Metrics and scoring formulae for the Western Highlands kick net IBI (100-count).
+```{r table_1}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab1.dir <- "Back_table1"
+
+table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+
+table1 %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+### Table 2. Metrics and scoring formulae for the Western Highlands kick net IBI (300-count).
+```{r table_2}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab2.dir <- "Back_table2"
+
+table2 <- read_excel(file.path(table.dir, table.file), sheet = tab2.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+
+table2 %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+
+### Table 3. Metrics and scoring formulae for the Central Hills kick net IBI (100-count). 
+```{r table_3}
+library(readxl)
+library(knitr)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab3.dir <- "Back_table3"
+
+table3 <- read_excel(file.path(table.dir, table.file), sheet = tab3.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+# kable(table3)
+table3 %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+```
+
+### Table 4. Metrics and scoring formulae for the Central Hills kick net IBI (300-count). 
+```{r table_4}
+library(readxl)
+library(knitr)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab4.dir <- "Back_table4"
+
+table4 <- read_excel(file.path(table.dir, table.file), sheet = tab4.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+# kable(table4)
+table4 %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+```
+
+### Table 5. Metrics and scoring formulae for the low gradient IBI (300-count).
+```{r table_5}
+library(readxl)
+library(knitr)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab5.dir <- "Back_table5"
+
+table5 <- read_excel(file.path(table.dir, table.file), sheet = tab5.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+# kable(table5)
+table5 %>% 
+  kbl() %>% 
+  kable_styling(full_width = F, position = "left")
+```

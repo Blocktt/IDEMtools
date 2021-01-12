@@ -1,0 +1,57 @@
+INDEX_NAME,INDEX_REGION,LAT,LONG,STATIONID,SAMPLEID,COLLDATE,COLLMETH,TAXAID,N_TAXA,EXCLUDE,NONTARGET,PHYLUM,CLASS,ORDER,FAMILY,SUBFAMILY,TRIBE,GENUS,TOLVAL,FFG,LIFE_CYCLE
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Cricotopus,5,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,SH,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Cricotopus bicinctus,11,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,CG,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Cricotopus bicinctus group,1,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,CG,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Cricotopus tremulus group,35,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,SH,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Cricotopus trifasciatus group,10,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,SH,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Cricotopus/Orthocladius,16,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,,7,CG,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Helobdella modesta,1,FALSE,FALSE,Annelida,Hirudinea,Rhynchobdellida,Glossiphoniidae,,,Helobdella,8,PR,multi
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Nanocladius,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Nanocladius,4,CG,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Orthocladiinae,1,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,,5,CG,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Physa,1,FALSE,FALSE,Mollusca,Gastropoda,Basommatophora,Physidae,,,Physa,9,CG,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Polypedilum,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Chironomini,Polypedilum,6,SH,multi
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Polypedilum fallax group,8,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Chironomini,Polypedilum,6,SH,multi
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Polypedilum trigonum,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Chironomini,Polypedilum,6,SH,multi
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Thienemannimyia,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Tanypodinae,,Thienemannimyia,6,PR,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Thienemannimyia group,6,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Tanypodinae,,Thienemannimyia,6,PR,NA
+MassDEP_2020_Bugs,KickIBI_CH_100ct,42.15498561,-71.65390952,B0093,1985006,6/17/1985,RBP kicknet,Triaenodes,1,FALSE,FALSE,Arthropoda,Insecta,Trichoptera,Leptoceridae,,,Triaenodes,6,SH,uni
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Acerpenna,1,FALSE,FALSE,Arthropoda,Insecta,Ephemeroptera,Baetidae,,,Acerpenna,5,CG,multi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Alotanypus,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Tanypodinae,Coelotanypodini,Alotanypus,,PR,NA
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Anchytarsus bicolor,2,FALSE,FALSE,Arthropoda,Insecta,Coleoptera,Ptilodactylidae,,,Anchytarsus,2,SH,semi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Dicranota,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Tipulidae,,,Dicranota,5,PR,uni
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Diplectrona modesta group,8,FALSE,FALSE,Arthropoda,Insecta,Trichoptera,Hydropsychidae,,,Diplectrona,2,CF,uni
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Heterotrissocladius marcidus group,3,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Heterotrissocladius,5,CG,NA
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Larsia,2,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Tanypodinae,Pentaneurini,Larsia,5,PR,NA
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Leuctra,3,FALSE,FALSE,Arthropoda,Insecta,Plecoptera,Leuctridae,,,Leuctra,2,SH,uni
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Lumbriculidae,1,FALSE,FALSE,Annelida,Clitellata,Lumbriculida,Lumbriculidae,,,,5,CG,NA
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Micropsectra,7,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Tanytarsini,Micropsectra,5,CG,multi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Nigronia serricornis,1,FALSE,FALSE,Arthropoda,Insecta,Megaloptera,Corydalidae,,,Nigronia,5,PR,semi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Parachaetocladius,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Parachaetocladius,2,CG,NA
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Parametriocnemus,10,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Parametriocnemus,5,CG,multi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Polypedilum,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Chironomini,Polypedilum,5,SH,multi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Rheotanytarsus exiguus group,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Tanytarsini,Rheotanytarsus,5,CF,multi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Simulium,59,FALSE,FALSE,Arthropoda,Insecta,Diptera,Simuliidae,,,Simulium,5,CF,multi
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Thienemannimyia group,4,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Tanypodinae,,Thienemannimyia,,PR,NA
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Tribelos,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Chironomini,Tribelos,5,CG,NA
+MassDEP_2020_Bugs,LowGradientIBI,42.58178925,-72.32696346,B0723,2011036,7/20/2011,RBP multihab,Tubificoid Naididae,1,FALSE,FALSE,Annelida,Clitellata,Tubificida,Naididae,,,,8,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Acariformes,1,FALSE,FALSE,Arthropoda,Arachnida,,,,,,6,PR,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Baetidae,5,TRUE,FALSE,Arthropoda,Insecta,Ephemeroptera,Baetidae,,,,5,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Baetidae,3,FALSE,FALSE,Arthropoda,Insecta,Ephemeroptera,Baetidae,,,,5,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Baetis,22,FALSE,FALSE,Arthropoda,Insecta,Ephemeroptera,Baetidae,,,Baetis,6,CG,multi
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Cricotopus,1,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,SH,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Cricotopus bicinctus,3,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Cricotopus tremulus group,7,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Cricotopus,7,SH,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Cricotopus/Orthocladius,28,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,,7,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Drunella cornutella,2,FALSE,FALSE,Arthropoda,Insecta,Ephemeroptera,Ephemerellidae,,,Drunella,1,SC,uni
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Ephemerella dorothea,2,FALSE,FALSE,Arthropoda,Insecta,Ephemeroptera,Ephemerellidae,,,Ephemerella,1,CG,uni
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Ephemerellidae,5,TRUE,FALSE,Arthropoda,Insecta,Ephemeroptera,Ephemerellidae,,,,1,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Eukiefferiella,3,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Eukiefferiella,6,CG,multi
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Eukiefferiella gracei group,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Eukiefferiella,4,CG,multi
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Hemerodromia,2,FALSE,FALSE,Arthropoda,Insecta,Diptera,Empididae,,,Hemerodromia,6,PR,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Hydropsyche,4,FALSE,FALSE,Arthropoda,Insecta,Trichoptera,Hydropsychidae,,,Hydropsyche,4,CF,uni
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Orthocladiinae,1,TRUE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,,5,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Orthocladius,3,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Orthocladius,6,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Parametriocnemus,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Parametriocnemus,5,CG,multi
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Polypedilum flavum,4,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Chironominae,Chironomini,Polypedilum,6,SH,multi
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Rheocricotopus,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Chironomidae,Orthocladiinae,,Rheocricotopus,6,CG,NA
+MassDEP_2020_Bugs,KickIBI_WH_100ct,42.66491344,-73.10394174,B0391,1985024,6/4/1985,RBP kicknet,Simulium,1,FALSE,FALSE,Arthropoda,Insecta,Diptera,Simuliidae,,,Simulium,5,CF,multi
