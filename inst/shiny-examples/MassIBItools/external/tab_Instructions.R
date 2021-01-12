@@ -1,7 +1,7 @@
 function(){
   tabPanel("Instructions",
 
-           img(src = "MassDEPlogo.png"),
+           img(src = "IDEM_logo.png"),
            includeHTML("App_Instructions.html")
 
   ) #tabPanel ~END

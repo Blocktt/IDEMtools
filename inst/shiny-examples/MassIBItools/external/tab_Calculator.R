@@ -34,7 +34,7 @@ function(){
                , h4("2. Calculate IBI")
                #, selectInput("MMI", "Select an IBI to calculate:",
                #choices=MMIs)
-               , h5("Mass Kick IBI or Multihabitat IBI - specified in INDEX_REGION field of input")
+               , h5("IDEM Bug or Fish IBI - specified in INDEX_REGION field of input")
                , actionButton("b_Calc", "Calculate Metric Values and Scores")
                , tags$hr()
                , h4("3. Download Results")
@@ -48,28 +48,8 @@ function(){
              )##sidebarPanel~END
              , mainPanel(
                tabsetPanel(type="tabs"
-                           # , tabPanel("TESTING"
-                           #            , htmlOutput("vig")
-                           #            , textOutput("fn_input")
-                           #            , useShinyjs()
-                           #            , runcodeUI(code="shinyjs::alert('Hello!')")
-                           #            )
-                           # , tabPanel("Directions"
-                           #            , p("Import data file."))
                            , tabPanel("Data, Import"
-                                      #, tableOutput('df_import'))
                                       , DT::dataTableOutput('df_import_DT'))
-                           # , tabPanel("Data QC"
-                           #            , h4("QC on the imported data")
-                           #             , p("Future implementation."))
-                           # , tabPanel("Results, Metric Values"
-                           #            , DT::dataTableOutput('df_metric_values'))
-                           # , tabPanel("Results, Metric Scores"
-                           #            , DT::dataTableOutput('df_metric_scores'))
-                           # , tabPanel("Results, Plot"
-                           #            #, plotlyOutput("plot_IBI", , height = "90%")
-                           #            , imageOutput("plot_IBI")
-                           #            )
                )##tabsetPanel~END
              )##mainPanel~END
 

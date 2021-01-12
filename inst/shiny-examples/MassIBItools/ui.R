@@ -7,22 +7,6 @@
 #    http://shiny.rstudio.com/
 #
 
-# Packages
-# library(shiny)
-# library(DT)
-# library(ggplot2)
-# library(readxl)
-# library(reshape2)
-# library(dplyr)
-# library(utils)
-# library(BioMonTools)
-# library(knitr)
-# library(maps)
-# library(rmarkdown)
-# library(tidyr)
-# library(plotly)
-# library(shinyjs) # used for download button enable
-
 # Source Pages ####
 
 # Load files for individual screens

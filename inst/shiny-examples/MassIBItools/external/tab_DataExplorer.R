@@ -11,8 +11,6 @@ function(){
                             , "")##selectInput~END
                , p("After choosing a Sample ID, the map will zoom to its location and the plot will display scoring.")
                , br()
-               # , helpText("Click below to download PDF of map")
-               # , downloadButton(outputId = "map_down", label = "Map Download")
                , plotOutput("DatExp_plot")
                , plotOutput("Index_plot")
 
