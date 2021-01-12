@@ -18,29 +18,26 @@ if(boo_DEBUG==TRUE){
 ```
 
 # Background
-Indices of Biotic Integrity (IBIs) were developed for macroinvertebrate assemblages in wadeable, freshwater, perennial streams in Massachusetts. There are currently five IBIs –
+Indices of Biotic Integrity (IBIs) were developed for macroinvertebrate and fish assemblages in wadeable and boatable, freshwater, perennial streams in Indiana. There are currently two IBIs –
 
-* Western Highlands kick net IBI (100-count)
-* Western Highlands kick net IBI (300-count)
-* Central Hills kick net IBI (100-count)
-* Central Hills kick net IBI (300-count)
-* Statewide low gradient (multihab) IBI (300-count)
+* Macroinvertebrate IBI
+* Fish IBI
 
-The southeast portion of Massachusetts, which includes the Narragansett/Bristol Lowlands, Cape Cod, and the Islands, had insufficient data to develop an IBI for kick net samples at this time.
+The IBI recalibration resulted in indices for five benthic macroinvertebrate site classes and four fish site classes. The benthic macroinvertebrate site classes were defined by ecoregions and basins, including the Northern, North-Central, Southeast, South-Central, and Southwest. Note that the South-Central site class had insufficient data for IBI recalibration; therefore, we recommend users apply the Southeast IBI to sites in the South-Central site class until sufficient data are accumulated. For fish, site classes were defined by stream size, slope, and sample collection method, including the small wadeable streams, large wadeable streams, low-gradient boatable streams, and high-gradient boatable streams. 
 
-Reports detailing the development of the kick and low gradient IBIs can be found [here](https://github.com/Blocktt/MassIBItools/tree/master/reports).
+Reports detailing the development of the macroinvertebrate and fish IBIs can be found [here](https://github.com/Blocktt/IDEMtools/tree/main/reports).
 
 ## Intended application
-The IBIs are intended to be applied to samples collected from freshwater, perennial, wadeable streams in Massachusetts using the MassDEP kick net or multihabitat sampling methods. MassDEP samples are collected between July 1–September 30, using a kick-net with 500 μm mesh and a 46 cm wide opening. Organisms are identified to the lowest practical level in the laboratory. 
-
-The kick net samples are collected from riffle/run areas in streams with fast currents and rocky substrate. Multihabitat samples are collected from low gradient, slow moving streams with soft or hard substrate, from the following habitats (in proportion to their occurrence): snags, root wads, leaf packs, aquatic macrophytes, undercut banks, overhanging vegetation, or hard bottom. With both collection methods, 10 kicks, sweeps, and/or jabs are taken over a 100-m reach and then combined into a single sample. 
+The IBIs are intended to be applied to samples collected from freshwater, perennial, wadeable or boatable streams in Indiana using the IDEM sampling methods.The macroinvertebrate sampling reach is defined as a 50m length of stream that includes the designated primary sampling “X-point” location (IDEM 2010). Within the reach, two sample types are collected and composited: a 10ft kicknet sample of 10 linear feet in riffle habitat (approximately 1 square meter of substrate) and a shoreline sample consisting of 25-30 sweeps along the 50m reach. Sweeps are from multiple habitats in proportion to the dominant habitat types. The fish community sampling reach is defined as 15x the average stream wetted width, with a minimum reach of 50 meters and a maximum reach of 500 meters that includes the designated “X-point”. Single pass electrofishing is performed using various standardized electrofishing methodologies and equipment depending on stream size and site accessibility. The possible list of electrofishing equipment includes backpack, longline, tote-barge or canoe, as well as a dropper anode boom with canoe for deeper pools.  The targeted habitat includes all available habitat types and should encompass at least two pool-riffle-run sequences.
 
 If you apply the IBIs to samples that do not meet the criteria listed above, results should be interpreted with caution.
 
 ## Input metrics and scoring formulae
-Kick net IBIs were calibrated for two regions - the Western Highlands (WH) and Central Hills (CH) (shown in Figure 1) – using 100-count or 300-count samples. The low gradient IBI, which can be applied statewide (as well as in Rhode Island), was calibrated with 300-count samples. Tables 1-5 show the input metrics and scoring formulae for the three IBIs. 
+Macroinvertebrate IBIs were calibrated for 5 regions - the Northern (N), North-Central (NC), Southeast (SE), South-Central (SC), and Southwest (SW) (shown in Figure 1). Note that the South-Central region lacks its own IBI; therefore, apply the Southeast IBI to that region for the time being.Tables 1-4 show the input metrics and scoring formulae for the four IBIs. 
 
-### Table 1. Metrics and scoring formulae for the Western Highlands kick net IBI (100-count).
+Fish IBIs were calibrated for 4 classes of streams - small wadeable streams (WS), large wadeable streams (WL), low-gradient boatable streams (BL), and high-gradient boatable streams (BH). Tables 5-8 show the input metrics and scoring formulae for the four IBIs.
+
+### Table 1. Metrics and scoring formulae for the Northern Macroinvertebrate IBI.
 ```{r table_1}
 library(readxl)
 library(knitr)
@@ -48,7 +45,7 @@ library(kableExtra)
 # state directories
 table.dir <- "tables"
 table.file <- "Instruction_Tables.xlsx"
-tab1.dir <- "Back_table1"
+tab1.dir <- "Bug_N"
 
 table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
                      , na = c("NA", ""), trim_ws = TRUE, skip = 0
@@ -60,7 +57,7 @@ table1 %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-### Table 2. Metrics and scoring formulae for the Western Highlands kick net IBI (300-count).
+### Table 2. Metrics and scoring formulae for the North-Central Macroinvertebrate IBI.
 ```{r table_2}
 library(readxl)
 library(knitr)
@@ -68,7 +65,7 @@ library(kableExtra)
 # state directories
 table.dir <- "tables"
 table.file <- "Instruction_Tables.xlsx"
-tab2.dir <- "Back_table2"
+tab2.dir <- "Bug_NC"
 
 table2 <- read_excel(file.path(table.dir, table.file), sheet = tab2.dir
                      , na = c("NA", ""), trim_ws = TRUE, skip = 0
@@ -80,60 +77,122 @@ table2 %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-
-### Table 3. Metrics and scoring formulae for the Central Hills kick net IBI (100-count). 
+### Table 3. Metrics and scoring formulae for the Southwest Macroinvertebrate IBI.
 ```{r table_3}
 library(readxl)
 library(knitr)
+library(kableExtra)
 # state directories
 table.dir <- "tables"
 table.file <- "Instruction_Tables.xlsx"
-tab3.dir <- "Back_table3"
+tab3.dir <- "Bug_SW"
 
 table3 <- read_excel(file.path(table.dir, table.file), sheet = tab3.dir
                      , na = c("NA", ""), trim_ws = TRUE, skip = 0
                      , col_names = TRUE)  
 
-# kable(table3)
-table3 %>% 
-  kbl() %>% 
+
+table3 %>%
+  kable() %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-### Table 4. Metrics and scoring formulae for the Central Hills kick net IBI (300-count). 
+### Table 4. Metrics and scoring formulae for the Southeast Macroinvertebrate IBI.The Southeast IBI is also applicable to South-Central region.
 ```{r table_4}
 library(readxl)
 library(knitr)
+library(kableExtra)
 # state directories
 table.dir <- "tables"
 table.file <- "Instruction_Tables.xlsx"
-tab4.dir <- "Back_table4"
+tab4.dir <- "Bug_SW"
 
 table4 <- read_excel(file.path(table.dir, table.file), sheet = tab4.dir
                      , na = c("NA", ""), trim_ws = TRUE, skip = 0
                      , col_names = TRUE)  
 
-# kable(table4)
-table4 %>% 
-  kbl() %>% 
+
+table4 %>%
+  kable() %>%
   kable_styling(full_width = F, position = "left")
 ```
 
-### Table 5. Metrics and scoring formulae for the low gradient IBI (300-count).
+### Table 5. Metrics and scoring formulae for the Small-wadeable fish IBI.
 ```{r table_5}
 library(readxl)
 library(knitr)
+library(kableExtra)
 # state directories
 table.dir <- "tables"
 table.file <- "Instruction_Tables.xlsx"
-tab5.dir <- "Back_table5"
+tab5.dir <- "Fish_WS"
 
 table5 <- read_excel(file.path(table.dir, table.file), sheet = tab5.dir
                      , na = c("NA", ""), trim_ws = TRUE, skip = 0
                      , col_names = TRUE)  
 
-# kable(table5)
-table5 %>% 
-  kbl() %>% 
+
+table5 %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+### Table 6. Metrics and scoring formulae for the Large-wadeable fish IBI.
+```{r table_6}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab6.dir <- "Fish_WL"
+
+table6 <- read_excel(file.path(table.dir, table.file), sheet = tab6.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+
+table6 %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+### Table 7. Metrics and scoring formulae for the Low-gradient boatable fish IBI.
+```{r table_7}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab7.dir <- "Fish_BL"
+
+table7 <- read_excel(file.path(table.dir, table.file), sheet = tab7.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+
+table7 %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```
+
+### Table 8. Metrics and scoring formulae for the High-gradient boatable fish IBI.
+```{r table_8}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab8.dir <- "Fish_BL"
+
+table8 <- read_excel(file.path(table.dir, table.file), sheet = tab8.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+
+table8 %>%
+  kable() %>%
   kable_styling(full_width = F, position = "left")
 ```
