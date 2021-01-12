@@ -436,100 +436,94 @@ shinyServer(function(input, output, session) {
 
       # create Region_Name column to combine Index_Regions
 
-      df_data$Region_Name <- ifelse(df_data$INDEX_REGION == "KickIBI_CH_300ct", "CH",
-                                     ifelse(df_data$INDEX_REGION == "KickIBI_CH_100ct", "CH",
-                                            ifelse(df_data$INDEX_REGION == "KickIBI_WH_300ct", "WH",
-                                                   ifelse(df_data$INDEX_REGION == "KickIBI_WH_100ct", "WH",
-                                                          "LowGrad"))))
+      df_data$Region_Name <- ifelse(df_data$INDEX_REGION == "Bugs_N", "N",
+                                          ifelse(df_data$INDEX_REGION == "Bugs_NC", "NC",
+                                                 ifelse(df_data$INDEX_REGION == "Bugs_SW", "SW",
+                                                        ifelse(df_data$INDEX_REGION == "Bugs_SE", "SE",
+                                                               "Unknown"))))
 
       # subset data by Index_Region
 
-      WH_data <- df_data %>%
-        filter(Region_Name == "WH")
+      N_data <- df_data %>%
+        filter(Region_Name == "N")
 
-      CH_data <- df_data %>%
-        filter(Region_Name == "CH")
+      NC_data <- df_data %>%
+        filter(Region_Name == "NC")
 
-      LG_data <- df_data %>%
-        filter(Region_Name == "LowGrad")
+      SW_data <- df_data %>%
+        filter(Region_Name == "SW")
+
+      SE_data <- df_data %>%
+        filter(Region_Name == "SE")
 
       leaflet() %>%
         addTiles() %>%
         addProviderTiles("CartoDB.Positron", group="Positron") %>%
         addProviderTiles(providers$Stamen.TonerLite, group="Toner Lite") %>%
-        addPolygons(data = MA_region_shape
-                    , color = "blue"
-                    , weight = 5
-                    , fill = FALSE
-                    , label = MA_region_shape$BugClass
-                    , group = "MA Regions"
-
-        ) %>%
-        addPolygons(data = basins_shape
-                    , color = "green"
-                    , weight = 3
-                    , fill = FALSE
-                    , label = basins_shape$NAME
-                    , group = "Major Basins"
-
-        ) %>%
-        addPolygons(data = SNEP_region
-                    , color = "purple"
-                    , weight = 5
-                    , fill = FALSE
-                    , label = SNEP_region$Name
-                    , group = "SNEP Region"
-
-        ) %>%
-        addCircleMarkers(data = WH_data, lat = ~LAT, lng = ~LONG
-                         , group = "Western Highlands", popup = paste("SampleID:", WH_data$SAMPLEID, "<br>"
-                                                                  ,"Site Class:", WH_data$INDEX_REGION, "<br>"
-                                                                  ,"Coll Date:", WH_data$COLLDATE, "<br>"
-                                                                  ,"Unique ID:", WH_data$STATIONID, "<br>"
-                                                                  ,"Score nt_total:", round(WH_data$SC_nt_total,2), "<br>"
-                                                                  ,"Score pi_Pleco:", round(WH_data$SC_pi_Pleco,2), "<br>"
-                                                                  ,"Score pi_ffg_filt:", round(WH_data$SC_pi_ffg_filt,2), "<br>"
-                                                                  ,"Score pi_ffg_shred:", round(WH_data$SC_pi_ffg_shred,2), "<br>"
-                                                                  ,"Score pi_tv_intol:", round(WH_data$SC_pi_tv_intol,2), "<br>"
-                                                                  ,"Score x_Becks:", round(WH_data$SC_x_Becks,2), "<br>"
-                                                                  ,"<b> Index Value:</b>", round(WH_data$Index, 2), "<br>"
-                                                                  ,"<b> Narrative:</b>", WH_data$Index_Nar)
+        # addPolygons(data = MA_region_shape
+        #             , color = "blue"
+        #             , weight = 5
+        #             , fill = FALSE
+        #             , label = MA_region_shape$BugClass
+        #             , group = "MA Regions"
+        #
+        # ) %>%
+        # addPolygons(data = basins_shape
+        #             , color = "green"
+        #             , weight = 3
+        #             , fill = FALSE
+        #             , label = basins_shape$NAME
+        #             , group = "Major Basins"
+        #
+        # ) %>%
+        # addPolygons(data = SNEP_region
+        #             , color = "purple"
+        #             , weight = 5
+        #             , fill = FALSE
+        #             , label = SNEP_region$Name
+        #             , group = "SNEP Region"
+        #
+        # ) %>%
+        addCircleMarkers(data = N_data, lat = ~LAT, lng = ~LONG
+                         , group = "Northern", popup = paste("SampleID:", N_data$SAMPLEID, "<br>"
+                                                                  ,"Site Class:", N_data$INDEX_REGION, "<br>"
+                                                                  ,"Coll Date:", N_data$COLLDATE, "<br>"
+                                                                  ,"Station ID:", N_data$STATIONID, "<br>"
+                                                                  ,"<b> Index Value:</b>", round(N_data$Index, 2), "<br>"
+                                                                  ,"<b> Narrative:</b>", N_data$Index_Nar)
                          , color = "black", fillColor = ~qpal(Index), fillOpacity = 1, stroke = TRUE
                          , clusterOptions = markerClusterOptions()
 
         ) %>%
-
-        addCircleMarkers(data = CH_data, lat = ~LAT, lng = ~LONG
-                         , group = "Central Hills", popup = paste("SampleID:", CH_data$SAMPLEID, "<br>"
-                                                                 ,"Site Class:", CH_data$INDEX_REGION, "<br>"
-                                                                 ,"Coll Date:", CH_data$COLLDATE, "<br>"
-                                                                 ,"Unique ID:", CH_data$STATIONID, "<br>"
-                                                                 ,"Score nt_total:", round(CH_data$SC_nt_total,2), "<br>"
-                                                                 ,"Score pt_EPT:", round(CH_data$SC_pt_EPT,2), "<br>"
-                                                                 ,"Score pi_EphemNoCaeBae:", round(CH_data$SC_pi_EphemNoCaeBae,2), "<br>"
-                                                                 ,"Score pi_ffg_filt:", round(CH_data$SC_pi_ffg_filt,2), "<br>"
-                                                                 ,"Score pt_ffg_pred:", round(CH_data$SC_pt_ffg_pred,2), "<br>"
-                                                                 ,"Score pt_tv_intol:", round(CH_data$SC_pt_tv_intol,2), "<br>"
-                                                                 ,"<b> Index Value:</b>", round(CH_data$Index, 2), "<br>"
-                                                                 ,"<b> Narrative:</b>", CH_data$Index_Nar)
+        addCircleMarkers(data = NC_data, lat = ~LAT, lng = ~LONG
+                         , group = "North-Central", popup = paste("SampleID:", NC_data$SAMPLEID, "<br>"
+                                                                    ,"Site Class:", NC_data$INDEX_REGION, "<br>"
+                                                                    ,"Coll Date:", NC_data$COLLDATE, "<br>"
+                                                                    ,"Station ID:", NC_data$STATIONID, "<br>"
+                                                                    ,"<b> Index Value:</b>", round(NC_data$Index, 2), "<br>"
+                                                                    ,"<b> Narrative:</b>", NC_data$Index_Nar)
                          , color = "black", fillColor = ~qpal(Index), fillOpacity = 1, stroke = TRUE
                          , clusterOptions = markerClusterOptions()
 
-        )%>%
+        ) %>%
+        addCircleMarkers(data = SW_data, lat = ~LAT, lng = ~LONG
+                         , group = "Southwest", popup = paste("SampleID:", SW_data$SAMPLEID, "<br>"
+                                                                    ,"Site Class:", SW_data$INDEX_REGION, "<br>"
+                                                                    ,"Coll Date:", SW_data$COLLDATE, "<br>"
+                                                                    ,"Station ID:", SW_data$STATIONID, "<br>"
+                                                                    ,"<b> Index Value:</b>", round(SW_data$Index, 2), "<br>"
+                                                                    ,"<b> Narrative:</b>", SW_data$Index_Nar)
+                         , color = "black", fillColor = ~qpal(Index), fillOpacity = 1, stroke = TRUE
+                         , clusterOptions = markerClusterOptions()
 
-        addCircleMarkers(data = LG_data, lat = ~LAT, lng = ~LONG
-                         , group = "Low Gradient", popup = paste("SampleID:", LG_data$SAMPLEID, "<br>"
-                                                                  ,"Site Class:", LG_data$INDEX_REGION, "<br>"
-                                                                  ,"Coll Date:", LG_data$COLLDATE, "<br>"
-                                                                  ,"Unique ID:", LG_data$STATIONID, "<br>"
-                                                                  ,"Score pi_OET:", round(LG_data$SC_pi_OET,2), "<br>"
-                                                                  ,"Score pt_ffg_pred:", round(LG_data$SC_pt_ffg_pred,2), "<br>"
-                                                                  ,"Score pt_NonIns:", round(LG_data$SC_pt_NonIns,2), "<br>"
-                                                                  ,"Score pt_POET:", round(LG_data$SC_pt_POET,2), "<br>"
-                                                                  ,"Score pt_tv_toler:", round(LG_data$SC_pt_tv_toler,2), "<br>"
-                                                                  ,"Score pt_volt_semi:", round(LG_data$SC_pt_volt_semi,2), "<br>"
-                                                                  ,"<b> Index Value:</b>", round(LG_data$Index, 2), "<br>"
-                                                                  ,"<b> Narrative:</b>", LG_data$Index_Nar)
+        ) %>%
+        addCircleMarkers(data = SE_data, lat = ~LAT, lng = ~LONG
+                         , group = "Southeast", popup = paste("SampleID:", SE_data$SAMPLEID, "<br>"
+                                                                    ,"Site Class:", SE_data$INDEX_REGION, "<br>"
+                                                                    ,"Coll Date:", SE_data$COLLDATE, "<br>"
+                                                                    ,"Station ID:", SE_data$STATIONID, "<br>"
+                                                                    ,"<b> Index Value:</b>", round(SE_data$Index, 2), "<br>"
+                                                                    ,"<b> Narrative:</b>", SE_data$Index_Nar)
                          , color = "black", fillColor = ~qpal(Index), fillOpacity = 1, stroke = TRUE
                          , clusterOptions = markerClusterOptions()
 
@@ -539,10 +533,10 @@ shinyServer(function(input, output, session) {
                   position = "bottomright",
                   title = "Index Scores",
                   opacity = 1) %>%
-        addLayersControl(overlayGroups = c("Western Highlands", "Central Hills", "Low Gradient", "MA Regions", "SNEP Region" ,"Major Basins"),
+        addLayersControl(overlayGroups = c("Northern", "North-Central", "Southwest", "Southeast"),
                          baseGroups = c("OSM (default)", "Positron", "Toner Lite"),
                          options = layersControlOptions(collapsed = TRUE))%>%
-        hideGroup(c("MA Regions", "SNEP Region" , "Major Basins")) %>%
+        # hideGroup(c("MA Regions", "SNEP Region" , "Major Basins")) %>%
         addMiniMap(toggleDisplay = TRUE)
 
       }) ##renderLeaflet~END
@@ -614,41 +608,49 @@ shinyServer(function(input, output, session) {
 
       # shape palette
       shape_pal <- c("Index" = 16
-                     , "nt_total" = 15
-                     , "pt_EPT" = 15
-                     , "pi_EphemNoCaeBae" = 15
-                     , "pi_ffg_filt" = 15
-                     , "pt_ffg_pred" = 15
-                     , "pt_tv_intol" = 15
-                     , "pi_Pleco" = 15
-                     , "pi_ffg_shred" = 15
-                     , "pi_tv_intol" = 15
-                     , "x_Becks" = 15
-                     , "pi_OET" = 15
-                     , "pt_ffg_pred" = 15
-                     , "pt_NonIns" = 15
-                     , "pt_POET" = 15
-                     , "pt_tv_toler" = 15
-                     , "pt_volt_semi" = 15)
+                     ,"nt_EPT" = 15
+                     ,"nt_ffg_scrap" = 15
+                     ,"nt_habit_cling" = 15
+                     ,"nt_tv_intol" = 15
+                     ,"pi_Chiro" = 15
+                     ,"pi_dom03" = 15
+                     ,"pi_EPT" = 15
+                     ,"pi_EPTNoBaeHydro" = 15
+                     ,"pi_ffg_colomn" = 15
+                     ,"pi_ffg_filt" = 15
+                     ,"pi_ffg_pred" = 15
+                     ,"pi_ffg_shred" = 15
+                     ,"pi_habit_cling" = 15
+                     ,"pi_NonIns" = 15
+                     ,"pi_Odon" = 15
+                     ,"pi_tv_intol" = 15
+                     ,"pt_EPT" = 15
+                     ,"pt_NonIns" = 15
+                     ,"pt_tv_intol" = 15
+                     ,"pt_tv_toler" = 15)
 
       # size palette
       size_pal <- c("Index" = 10
-                    , "nt_total" = 5
-                    , "pt_EPT" = 5
-                    , "pi_EphemNoCaeBae" = 5
-                    , "pi_ffg_filt" = 5
-                    , "pt_ffg_pred" = 5
-                    , "pt_tv_intol" = 5
-                    , "pi_Pleco" = 5
-                    , "pi_ffg_shred" = 5
-                    , "pi_tv_intol" = 5
-                    , "x_Becks" = 5
-                    , "pi_OET" = 5
-                    , "pt_ffg_pred" = 5
-                    , "pt_NonIns" = 5
-                    , "pt_POET" = 5
-                    , "pt_tv_toler" = 5
-                    , "pt_volt_semi" = 5)
+                    ,"nt_EPT" = 5
+                    ,"nt_ffg_scrap" = 5
+                    ,"nt_habit_cling" = 5
+                    ,"nt_tv_intol" = 5
+                    ,"pi_Chiro" = 5
+                    ,"pi_dom03" = 5
+                    ,"pi_EPT" = 5
+                    ,"pi_EPTNoBaeHydro" = 5
+                    ,"pi_ffg_colomn" = 5
+                    ,"pi_ffg_filt" = 5
+                    ,"pi_ffg_pred" = 5
+                    ,"pi_ffg_shred" = 5
+                    ,"pi_habit_cling" = 5
+                    ,"pi_NonIns" = 5
+                    ,"pi_Odon" = 5
+                    ,"pi_tv_intol" = 5
+                    ,"pt_EPT" = 5
+                    ,"pt_NonIns" = 5
+                    ,"pt_tv_intol" = 5
+                    ,"pt_tv_toler" = 5)
 
       ggplot(df_grph_input, aes(x=Variable, y = Score, shape = Variable))+
         geom_point(aes(size = Variable))+
