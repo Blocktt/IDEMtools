@@ -22,8 +22,8 @@ library(shinythemes)
 
 
 # Drop-down boxes
-MMI <- "MassDEP_2020_Bugs"
-Community <- c("bugs")
+MMIs <- c("IDEM_2017_Bugs", "IDEM_2017_Fish")
+Community <- c("bugs", "fish")
 
 
 # File Size

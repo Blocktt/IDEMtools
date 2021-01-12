@@ -32,8 +32,8 @@ function(){
                )##fileInput~END
                #, tags$hr()
                , h4("2. Calculate IBI")
-               #, selectInput("MMI", "Select an IBI to calculate:",
-               #choices=MMIs)
+               , selectInput("MMI", "Select an IBI to calculate:",
+                             choices=MMIs)
                , h5("IDEM Bug or Fish IBI - specified in INDEX_REGION field of input")
                , actionButton("b_Calc", "Calculate Metric Values and Scores")
                , tags$hr()

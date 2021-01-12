@@ -280,15 +280,19 @@ shinyServer(function(input, output, session) {
             # columns to keep
             keep_cols <- c("Lat", "Long", "STATIONID", "COLLDATE", "COLLMETH", "INDEX_REGION_LONG")
 
-            # metric calculation
-
-            Community <- "bugs"
-            myCommunity <- Community
+            # Choose correct community and metrics by selecting IBI in user interface
+            # relies on correct order of Community and MMIs vector (matches absolute location)
+            myIndex <- input$MMI
+            myCommunity <- Community[match(myIndex, MMIs)]
 
             ifelse(myCommunity == "bugs",
                    myMetrics <- BugMetrics,
                    myMetrics <- FishMetrics)
 
+            # Log
+            message(paste0("Community = ", myCommunity))
+
+            # metric calculation
             df_metval <- suppressWarnings(metric.values(fun.DF = df_data, fun.Community = myCommunity,
                                                         fun.MetricNames = myMetrics, fun.cols2keep=keep_cols, boo.Shiny = TRUE))
 
@@ -298,7 +302,7 @@ shinyServer(function(input, output, session) {
             Sys.sleep(1)
 
             # Log
-            message(paste0("Chosen IBI from Shiny app = ", MMI))
+            message(paste0("Chosen IBI from Shiny app = ", input$MMI))
 
 
             #
@@ -389,7 +393,7 @@ shinyServer(function(input, output, session) {
         #myDateTime <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
         filename = function() {
-            paste(MMI, "_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip", sep = "")
+            paste(input$MMI, "_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip", sep = "")
         },
         content = function(fname) {##content~START
             # tmpdir <- tempdir()
