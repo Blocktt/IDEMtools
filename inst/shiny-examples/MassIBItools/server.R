@@ -351,8 +351,8 @@ shinyServer(function(input, output, session) {
             Sys.sleep(0.75)
 
             # Render Summary Report (rmarkdown file)
-            rmarkdown::render(input = file.path(".", "Extras", "Summary_IN.rmd"), output_format = "word_document",
-                              output_dir = file.path(".", "Results"), output_file = "results_summary_report", quiet = TRUE)
+            # rmarkdown::render(input = file.path(".", "Extras", "Summary_IN.rmd"), output_format = "word_document",
+            #                   output_dir = file.path(".", "Results"), output_file = "results_summary_report", quiet = TRUE)
 
             # Increment the progress bar, and update the detail text.
             incProgress(1/n_inc, detail = "Ben's code is magical!")
