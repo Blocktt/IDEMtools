@@ -1,35 +1,20 @@
-NEWS-MassIBItools
+NEWS-IDEMtools
 ================
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2020-12-09 08:52:53
+    #> Last Update: 2021-01-13 11:05:50
 
-# MassIBItools v0.1.2.920 (2020-12-07)
+# IDEMtools v1.0.910 (2021-01-13)
 
-  - Updated data prep, instructions, and background information per Jen
-    Stamp’s (Tt) edits
+  - Edited all files to represent IDEM data requirements
+  - Still need to do the following tasks:
+  - Add score columns back into pop-up in leaflet map
+  - Remove quote input requirement in ui.R
+  - Create FishMetrics list in global.R
+  - Update BioMonTools with new bug and fish metrics
+  - Run QC on metric calculation and scoring
 
-# MassIBItools v0.1.2.915 (2020-11-02)
+# IDEMtools v1.0.900 (2021-01-12)
 
-  - Added HTML versions of instructions and background tabs
-
-# MassIBItools v0.1.2.900 (2020-09-24)
-
-  - Added instructions tab that has background information
-
-# MassIBItools v0.1.1.900 (2020-09-23)
-
-  - Added data explorer tab - includes increased mapping capabilities
-    and index scoring plot.
-  - Added generic summary report that downloads when results are
-    downloaded.
-
-# MassIBItools v0.1.0.904 (2020-09-11)
-
-  - Created additions to mappping capabilities - site selector, toggle
-    of background layers, and region layers.
-
-# MassIBItools v0.1.0.900 (2020-09-08)
-
-  - Forked code from <https://github.com/Blocktt/MassIBItools>
+  - Forked code from <https://github.com/Blocktt/IDEMtools>
