@@ -460,30 +460,22 @@ shinyServer(function(input, output, session) {
         addTiles() %>%
         addProviderTiles("CartoDB.Positron", group="Positron") %>%
         addProviderTiles(providers$Stamen.TonerLite, group="Toner Lite") %>%
-        # addPolygons(data = MA_region_shape
-        #             , color = "blue"
-        #             , weight = 5
-        #             , fill = FALSE
-        #             , label = MA_region_shape$BugClass
-        #             , group = "MA Regions"
-        #
-        # ) %>%
-        # addPolygons(data = basins_shape
-        #             , color = "green"
-        #             , weight = 3
-        #             , fill = FALSE
-        #             , label = basins_shape$NAME
-        #             , group = "Major Basins"
-        #
-        # ) %>%
-        # addPolygons(data = SNEP_region
-        #             , color = "purple"
-        #             , weight = 5
-        #             , fill = FALSE
-        #             , label = SNEP_region$Name
-        #             , group = "SNEP Region"
-        #
-        # ) %>%
+        addPolygons(data = IN_StateBasins
+                    , color = "blue"
+                    , weight = 5
+                    , fill = FALSE
+                    , label = IN_StateBasins$Monitoring
+                    , group = "State Basins"
+
+        ) %>%
+        addPolygons(data = IN_BugClasses
+                    , color = "green"
+                    , weight = 3
+                    , fill = FALSE
+                    , label = basins_shape$Location
+                    , group = "Bug Site Classes"
+
+        ) %>%
         addCircleMarkers(data = N_data, lat = ~LAT, lng = ~LONG
                          , group = "Northern", popup = paste("SampleID:", N_data$SAMPLEID, "<br>"
                                                                   ,"Site Class:", N_data$INDEX_REGION, "<br>"
@@ -533,10 +525,10 @@ shinyServer(function(input, output, session) {
                   position = "bottomright",
                   title = "Index Scores",
                   opacity = 1) %>%
-        addLayersControl(overlayGroups = c("Northern", "North-Central", "Southwest", "Southeast"),
+        addLayersControl(overlayGroups = c("Northern", "North-Central", "Southwest", "Southeast", "State Basins", "Bug Site Classes"),
                          baseGroups = c("OSM (default)", "Positron", "Toner Lite"),
                          options = layersControlOptions(collapsed = TRUE))%>%
-        # hideGroup(c("MA Regions", "SNEP Region" , "Major Basins")) %>%
+        hideGroup(c("State Basins", "Bug Site Classes")) %>%
         addMiniMap(toggleDisplay = TRUE)
 
       }) ##renderLeaflet~END

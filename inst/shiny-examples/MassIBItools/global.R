@@ -69,14 +69,12 @@ FishMetrics <- c("nt_total"
 
 dir_data <- file.path(".","GIS_Data")
 
-## Central Hills / Western Highlands Regions
-MA_region_shape <- rgdal::readOGR(file.path(dir_data, "BugClasses_20201001.shp"))
+## Indiana State Basins
+IN_StateBasins <- rgdal::readOGR(file.path(dir_data, "IN_StateBasins_20210113.shp"))
 
-## Mass Major Basins
+## Indiana 2017 Bug IBI Site Classes
 
-basins_shape <- rgdal::readOGR(file.path(dir_data,"MA_MajBasins.shp"))
+IN_BugClasses <- rgdal::readOGR(file.path(dir_data, "IN_BugClasses_20210113.shp"))
 
-## SNEP region
 
-SNEP_region <- rgdal::readOGR(file.path(dir_data,"SNEP_Bound_20201001.shp"))
 
