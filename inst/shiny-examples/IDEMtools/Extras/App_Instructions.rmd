@@ -19,7 +19,7 @@ if(boo_DEBUG==TRUE){
 
 # Instructions
 
-IDEMtools was developed to calculate diatom metrics and Indices of Biotic Integrity (IBI) for perrenial, wadeable streams in Indiana. Detailed documentation of IBI development can be downloaded [here](https://github.com/Blocktt/IDEMtools/tree/main/reports). Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.
+IDEMtools was developed to calculate diatom metrics and Indices of Biotic Integrity (IBI) for perrenial, wadeable streams in Indiana. Detailed documentation of IBI development can be downloaded [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/IDEMtools/Reports). Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.
 
 The Instructions are divided into three sections: 1) preparing the input file; 2) app operation; and 3) frequently asked questions (FAQ). Links to an example input file and a document containing more detailed information on preparing the input file are also provided.
 
@@ -31,7 +31,7 @@ Tetra Tech, Inc. developed the IDEMtools shiny app for the Indiana Department of
 ## Preparing the input file
 IDEMtools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).
 
-Click here to view an [EXAMPLE INPUT FILE](https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/IDEMtools/Examples).
+Click here to view an [EXAMPLE INPUT FILE](https://github.com/Blocktt/ShinyAppDocuments/tree/main/IDEMtools/Example_Files).
 
 If you are unsure how to download a data file from GitHub, [watch this short video](https://www.youtube.com/watch?v=GIJdfuAoqFI) or contact Ben Block (ben.block@tetratech.com).
 
@@ -63,7 +63,7 @@ table1 %>%
 Once open, the user will see the IBI calculator interface. The user should follow the onscreen instructions as follows:
 
 1. Load file
-    + An example input file can be downloaded from Github [EXAMPLE LINK](https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/IDEMtools/Examples)
+    + An example input file can be downloaded from Github [EXAMPLE LINK](https://github.com/Blocktt/ShinyAppDocuments/tree/main/IDEMtools/Example_Files)
     + Choose Separator. The separator indicates how the data is stored. Comma indicates the input file is a comma-separated file (.csv). Tab indicates the input file is a tab-separated file (.txt or .tsv). Finally, Semicolon indicates the input file is a semicolon-separated file which is uncommon in the United States but common in Western-European countries. Be certain that the designated separator is not used in any of the text fields (e.g., for multiple BC_USGS values, separate with a semicolon).
     + Choose Quote. The quote indicates how the data is stored. Double quote is the most common.
     + Choose file to upload. Hit the browse button and search for the input file. 
