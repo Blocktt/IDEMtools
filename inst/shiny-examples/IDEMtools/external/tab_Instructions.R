@@ -1,8 +1,9 @@
 function(){
   tabPanel("Instructions",
+           mainPanel(
+             img(src = "IDEM_logo.png", height = 175)
+             ,includeHTML("www/App_Instructions.html")
 
-           img(src = "IDEM_logo.png", height = 175),
-           includeHTML("App_Instructions.html")
-
+           )##mainPanel~END
   ) #tabPanel ~END
 }##FUNCTION~END

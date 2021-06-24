@@ -10,8 +10,6 @@
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 
-  message("Server - Code runs through Line 29")
-
     # map and plots require df_metsc
     map_data <- reactiveValues(df_metsc = NULL)
 

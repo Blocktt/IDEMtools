@@ -3,17 +3,17 @@
 
 <div id="instructions" class="section level1">
 <h1>Instructions</h1>
-<p>IEPAtools was developed to calculate benthic macroinvertebrate metrics and Indices of Biotic Integrity (IBI) for lakes in Illinois. Detailed documentation of IBI development can be downloaded <a href="https://github.com/Blocktt/IEPAtools/tree/main/reports">here</a>. Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.</p>
+<p>IDEMtools was developed to calculate diatom metrics and Indices of Biotic Integrity (IBI) for perrenial, wadeable streams in Indiana. Detailed documentation of IBI development can be downloaded <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">here</a>. Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.</p>
 <p>The Instructions are divided into three sections: 1) preparing the input file; 2) app operation; and 3) frequently asked questions (FAQ). Links to an example input file and a document containing more detailed information on preparing the input file are also provided.</p>
 <p>This app was developed by Ben Block from Tetra Tech, Inc. (<a href="mailto:Ben.Block@tetratech.com" class="email">Ben.Block@tetratech.com</a>), with underlying R code written by Ben Block and Erik Leppo (<a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a>). Please contact Ben Block should any issues or questions arise.</p>
 <div id="foreword" class="section level2">
 <h2>Foreword</h2>
-<p>Tetra Tech, Inc. developed the IEPAtools shiny app for the Illinois Environmental Protection Agency. It allows IEPA and their partners to calculate IBI scores for benthic macroinvertebrate samples. The new IBIs will improve IEPA’s diagnostic ability to identify degradation in biological integrity and water quality. The app is streamlined and easy to operate, and only requires an input dataset to function. Shiny apps are interactive web applications that serve as graphical user interfaces. They are linked to R, which is an open source programming language and software environment for statistical computing.</p>
+<p>Tetra Tech, Inc. developed the IDEMtools shiny app for the Indiana Department of Environmental Management (IDEM). It allows IDEM and their partners to calculate IBI scores for diatom samples. The new IBIs will improve IDEM’s diagnostic ability to identify degradation in biological integrity and water quality. The app is streamlined and easy to operate, and only requires an input dataset to function. Shiny apps are interactive web applications that serve as graphical user interfaces. They are linked to R, which is an open source programming language and software environment for statistical computing.</p>
 </div>
 <div id="preparing-the-input-file" class="section level2">
 <h2>Preparing the input file</h2>
-<p>IEPAtools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).</p>
-<p>Click here to view an <a href="https://github.com/Blocktt/IEPAtools/tree/main/inst/shiny-examples/IEPAtools/Examples">EXAMPLE INPUT FILE</a>.</p>
+<p>IDEMtools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).</p>
+<p>Click here to view an <a href="https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/IDEMtools/Examples">EXAMPLE INPUT FILE</a>.</p>
 <p>If you are unsure how to download a data file from GitHub, <a href="https://www.youtube.com/watch?v=GIJdfuAoqFI">watch this short video</a> or contact Ben Block (<a href="mailto:ben.block@tetratech.com" class="email">ben.block@tetratech.com</a>).</p>
 <p>You are now ready to run your file through the IBI calculator!</p>
 <div id="table-1.-list-of-required-fields.-column-names-must-be-capitalized-and-match-the-spelling-and-symbology-exactly-as-shown." class="section level3">
@@ -47,13 +47,13 @@ INDEX_NAME
 text
 </td>
 <td style="text-align:left;">
-IEPA_2021_Bugs
+IDEM_2021_Diatoms
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:left;">
-Only one allowable entry (IDEM_2017_Bugs or IDEM_2017_Fish).
+Only one allowable entry (IDEM_2021_Diatoms)
 </td>
 </tr>
 <tr>
@@ -64,18 +64,18 @@ INDEX_REGION
 text
 </td>
 <td style="text-align:left;">
-North, Central, South
+HiN, LoN
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:left;">
-Must match one of the three allowable entries (which tells the R code which IBI to apply to each sample).
+Must match one of the two allowable entries (which tells the R code which IBI to apply to each sample).
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-LAKECODE
+STATIONID
 </td>
 <td style="text-align:left;">
 text
@@ -92,19 +92,19 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-SAMPLEID
+BFI
 </td>
 <td style="text-align:left;">
-text
+numeric
 </td>
 <td style="text-align:left;">
-NA
+real number
 </td>
 <td style="text-align:left;">
 No
 </td>
 <td style="text-align:left;">
-Unique sample identifier (typically comprised of the site name, sample date, and replicate number).
+<a href="https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset-0">USGS StreamCat</a> catchment-level Base Flow Index (BFI) value. Used for an adjustment of the pt_BC_12 metric.
 </td>
 </tr>
 <tr>
@@ -160,7 +160,7 @@ Date on which the sample was collected.
 </tr>
 <tr>
 <td style="text-align:left;">
-COLLMETH
+SAMPLEID
 </td>
 <td style="text-align:left;">
 text
@@ -169,10 +169,10 @@ text
 NA
 </td>
 <td style="text-align:left;">
-Yes
+No
 </td>
 <td style="text-align:left;">
-NA
+Unique sample identifier (typically comprised of the site name, sample date, and replicate number).
 </td>
 </tr>
 <tr>
@@ -190,23 +190,6 @@ No
 </td>
 <td style="text-align:left;">
 Taxonomic identification of organisms in each sample.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-N_TAXA
-</td>
-<td style="text-align:left;">
-numeric
-</td>
-<td style="text-align:left;">
-non-negative real number
-</td>
-<td style="text-align:left;">
-No
-</td>
-<td style="text-align:left;">
-Number of individuals.
 </td>
 </tr>
 <tr>
@@ -245,36 +228,19 @@ Non-target taxa should be marked “TRUE”.
 </tr>
 <tr>
 <td style="text-align:left;">
-PHYLUM
+N_TAXA
 </td>
 <td style="text-align:left;">
-text
+numeric
 </td>
 <td style="text-align:left;">
-NA
+non-negative real number
 </td>
 <td style="text-align:left;">
-Yes
+No
 </td>
 <td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-CLASS
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-NA
+Number of individuals.
 </td>
 </tr>
 <tr>
@@ -291,46 +257,12 @@ NA
 Yes
 </td>
 <td style="text-align:left;">
-Several IBI metrics are based on Order (e.g., ECT taxa richness).
+NA
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
 FAMILY
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Entries should be consistent with the phylogeny.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-SUBFAMILY
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TRIBE
 </td>
 <td style="text-align:left;">
 text
@@ -359,24 +291,109 @@ NA
 Yes
 </td>
 <td style="text-align:left;">
-NA
+The pt_Achnan_Navic metric is calculated using this field
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-FFG
+BC_USGS
 </td>
 <td style="text-align:left;">
 text
 </td>
 <td style="text-align:left;">
-CG, CF, PR, SC, SH (select mutiple)
+BC_1, BC_2, BC_3, BC_4, BC_5 (can select multiple)
 </td>
 <td style="text-align:left;">
 Yes
 </td>
 <td style="text-align:left;">
-Primary Functional Feeding Group. Choose from, can have multiple entries separated by comma: collector-gatherer (CG), collector-filterer (CF), predator (PR), scraper (SC), or shredder (SH).
+USGS Diatom trait - The Biological Condition rating. See the <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">report appendix</a> for metric descriptions.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PT_USGS
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+PT_1, PT_2, PT_3, PT_4, PT_5 (can select multiple)
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+USGS Diatom trait - The pollution tolerance system of Lange-Bertalot (1979). . See the <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">report appendix</a> for metric descriptions.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+O_USGS
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+O_1, O_2, O_3, O_4, O_5 (can select multiple)
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+USGS Diatom trait - Classification of “oxygen requirements” is based on several sources (Hustedt 1938, Cholnoky 1968, Van Dam 1975) and summarized in Van Dam et al. (1994). See the <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">report appendix</a> for metric descriptions.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SALINITY_USGS
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+SALINITY_1, SALINITY_2, SALINITY_3, SALINITY_4 (can select multiple)
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+USGS Diatom trait - Tolerance to salinity is represented by the categories of fresh to brackish waters (Van Dam et al. 1994). . See the <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">report appendix</a> for metric descriptions.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+P_USGS
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+LOW_P, HIGH_P
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+USGS Diatom trait - Nutrient status metrics are the only metrics that are based on data from US rivers (Potapova and Charles 2007). See the <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">report appendix</a> for metric descriptions.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_USGS
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+LOW_N, HIGH_N
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+USGS Diatom trait - Nutrient status metrics are the only metrics that are based on data from US rivers (Potapova and Charles 2007). See the <a href="https://github.com/Blocktt/IDEMtools/tree/main/reports">report appendix</a> for metric descriptions.
 </td>
 </tr>
 <tr>
@@ -393,24 +410,7 @@ number ranging from 0-10
 Yes
 </td>
 <td style="text-align:left;">
-Taxa with tolerance values ranging from 0 to 3 are considered ‘intolerant’ to anthropogenic disturbance and are included in the ‘intolerant’ metric calculations. Those with values ranging from 7 to 10 are included in the ‘tolerant’ metrics.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-HABIT
-</td>
-<td style="text-align:left;">
-text
-</td>
-<td style="text-align:left;">
-SW, CN, SP, CB, BU (select multiple)
-</td>
-<td style="text-align:left;">
-Yes
-</td>
-<td style="text-align:left;">
-Priamry insect habits. Choose from, can have multiple entries separated by comma: Swimmers (SW), Clingers (CN), Sprawlers (SP), Climbers (CB), Burrowers (BU)
+Taxa tolerance to anthropogenic disturbance. For this project, taxa with tolerance values ranging from 0 to 3 are considered ‘tolerant’ to anthropogenic disturbance as measured by the pi_Tol13 metric calculation. Those with values ranging from 8 to 10 are included in the ‘intolerant’ metric, pt_Sens810.
 </td>
 </tr>
 </tbody>
@@ -423,8 +423,8 @@ Priamry insect habits. Choose from, can have multiple entries separated by comma
 <ol style="list-style-type: decimal">
 <li><p>Load file</p>
 <ul>
-<li>An example input file can be downloaded from Github <a href="https://github.com/Blocktt/IEPAtools/tree/main/inst/shiny-examples/IEPAtools/Examples">EXAMPLE LINK</a></li>
-<li>Choose Separator. The separator indicates how the data is stored. Comma indicates the input file is a comma-separated file (.csv). Tab indicates the input file is a tab-separated file (.txt or .tsv). Finally, Semicolon indicates the input file is a semicolon-separated file which is uncommon in the United States but common in Western-European countries. Be certain that the designated separator is not used in any of the text fields (e.g., for multiple FFG, separate with a semicolon).</li>
+<li>An example input file can be downloaded from Github <a href="https://github.com/Blocktt/IDEMtools/tree/main/inst/shiny-examples/IDEMtools/Examples">EXAMPLE LINK</a></li>
+<li>Choose Separator. The separator indicates how the data is stored. Comma indicates the input file is a comma-separated file (.csv). Tab indicates the input file is a tab-separated file (.txt or .tsv). Finally, Semicolon indicates the input file is a semicolon-separated file which is uncommon in the United States but common in Western-European countries. Be certain that the designated separator is not used in any of the text fields (e.g., for multiple BC_USGS values, separate with a semicolon).</li>
 <li>Choose Quote. The quote indicates how the data is stored. Double quote is the most common.</li>
 <li>Choose file to upload. Hit the browse button and search for the input file.</li>
 <li>Once uploaded, make sure data is correct in the viewer. If the incorrect Separator or Quote is chosen, you may receive an error or the data may look incorrect in the viewer.</li>
