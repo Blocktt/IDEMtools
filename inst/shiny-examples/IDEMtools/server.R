@@ -244,7 +244,7 @@ shinyServer(function(input, output, session) {
             Sys.sleep(1)
 
             # Log
-            message(paste0("Chosen IBI from Shiny app = ", input$MMI))
+            message(paste0("Chosen IBI from Shiny app = ", MMI))
 
 
             #
@@ -264,11 +264,12 @@ shinyServer(function(input, output, session) {
 
             # Adjust diatom metrics according to BFI field
 
-            if(df_metval$BFI < 30){
-              df_metval$pt_BC_12_adj <- df_metval$pt_BC_12 - 10.5
-            } else {
-              df_metval$pt_BC_12_adj <- df_metval$pt_BC_12 - 15.1
-            } ## END adjustment statement
+            df_metval <- df_metval %>%
+              group_by(SAMPLEID) %>%
+              mutate(pt_BC_12_adj =
+                       ifelse(BFI < 30
+                              , pt_BC_12 - 10.5
+                              , pt_BC_12 - 15.1))
 
 
             # Increment the progress bar, and update the detail text.

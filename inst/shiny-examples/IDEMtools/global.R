@@ -23,7 +23,7 @@ library(htmlwidgets)
 
 
 # Drop-down boxes
-MMIs <- c("IDEM_2021_Diatoms")
+MMI <- c("IDEM_2021_Diatoms")
 Community <- c("algae")
 
 

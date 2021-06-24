@@ -1,0 +1,15 @@
+Results Log from IDEMtools Shiny App
+2021-06-24 14:46:35
+file = BioMonTools_Input_IDEM_20210624.csv
+EXCLUDE column does not have any TRUE values. 
+  Valid values are TRUE or FALSE.  
+  Other values are not recognized.
+Warning in eval(expr, env) :
+  Metrics related to the following fields are invalid:
+   PHYLUM
+Chosen IBI from Shiny app = 
+Warning in if (df_metval$BFI < 30) { :
+  the condition has length > 1 and only the first element will be used
+Warning in sink() : no sink to remove
+
+
