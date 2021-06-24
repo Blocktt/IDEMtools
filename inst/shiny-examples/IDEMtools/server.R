@@ -10,9 +10,14 @@
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 
+  message("Server - Code runs through Line 29")
+
     # map and plots require df_metsc
     map_data <- reactiveValues(df_metsc = NULL)
 
+    ##############################
+    ###### Insturctions Page #####
+    ##############################
 
     # Misc Names ####
     output$fn_input_display <- renderText({input$fn_input}) ## renderText~END
@@ -30,7 +35,7 @@ shinyServer(function(input, output, session) {
         inFile <- input$fn_input
 
         shiny::validate(
-            need(inFile != "", "Please upload a data set") # used to inform the user that a data set is required
+            need(inFile != "", "Please select a data set") # used to inform the user that a data set is required
         )
 
         if (is.null(inFile)){
@@ -39,30 +44,31 @@ shinyServer(function(input, output, session) {
 
         # Read user imported file
         df_input <- read.csv(inFile$datapath, header = TRUE,
-                             sep = input$sep, quote = input$quote, stringsAsFactors = FALSE)
+                             sep = input$sep,
+                             quote = input$quote, stringsAsFactors = FALSE)
 
         required_columns <- c("INDEX_NAME"
-                              ,"LAKECODE"
-                              ,"COLLDATE"
-                              ,"COLLMETH"
-                              ,"SAMPLEID"
+                              ,"INDEX_REGION"
+                              ,"STATIONID"
+                              ,"BFI"
                               ,"LAT"
                               ,"LONG"
-                              ,"INDEX_REGION"
+                              ,"COLLDATE"
+                              ,"SAMPLEID"
                               ,"TAXAID"
-                              ,"N_TAXA"
                               ,"EXCLUDE"
                               ,"NONTARGET"
-                              ,"PHYLUM"
-                              ,"CLASS"
+                              ,"N_TAXA"
                               ,"ORDER"
                               ,"FAMILY"
-                              ,"SUBFAMILY"
-                              ,"TRIBE"
                               ,"GENUS"
-                              ,"FFG"
-                              ,"TOLVAL"
-                              ,"HABIT")
+                              ,"BC_USGS"
+                              ,"PT_USGS"
+                              ,"O_USGS"
+                              ,"SALINITY_USGS"
+                              ,"P_USGS"
+                              ,'N_USGS'
+                              ,"TOLVAL")
 
         column_names <- colnames(df_input)
 
@@ -71,12 +77,13 @@ shinyServer(function(input, output, session) {
         col_missing <- required_columns[!col_req_match]
 
         shiny::validate(
-            need(all(required_columns %in% column_names), paste0("Error\nChoose correct data separator; otherwise, you may have missing required columns\n",
-                                                                 paste("Required columns missing from the data:\n")
-                                                                 , paste("* ", col_missing, collapse = "\n")))
+            need(all(required_columns %in% column_names)
+                 , paste0("Error\nChoose correct data separator; otherwise, you may have missing required columns\n"
+                          , paste("Required columns missing from the data:\n")
+                          , paste("* ", col_missing, collapse = "\n")))
         )##END ~ validate() code
 
-        ########################### MAP and PLOT Observer ########################################
+        ########################### MAP and PLOT Observer
         observe({
           inFile<- input$fn_input
           if(is.null(inFile))
@@ -84,8 +91,12 @@ shinyServer(function(input, output, session) {
 
           df_input
 
-          updateSelectInput(session, "siteid.select", choices = as.character(sort(unique(df_input[, "SAMPLEID"]))))
+          updateSelectInput(session, "siteid.select"
+                            , choices = as.character(
+                              sort(unique(df_input[, "SAMPLEID"]))))
         }) ## observe~END
+
+
 
         # Add "Results" folder if missing
         boo_Results <- dir.exists(file.path(".", "Results"))
@@ -99,10 +110,12 @@ shinyServer(function(input, output, session) {
 
         # Write to "Results" folder - Import as TSV
         fn_input <- file.path(".", "Results", "data_import.tsv")
-        write.table(df_input, fn_input, row.names=FALSE, col.names=TRUE, sep="\t")
+        write.table(df_input, fn_input, row.names=FALSE
+                    , col.names=TRUE, sep="\t")
 
         # Copy to "Results" folder - Import "as is"
-        file.copy(input$fn_input$datapath, file.path(".", "Results", input$fn_input$name))
+        file.copy(input$fn_input$datapath
+                  , file.path(".", "Results", input$fn_input$name))
 
         return(df_input)
 
@@ -118,19 +131,19 @@ shinyServer(function(input, output, session) {
         shiny::withProgress({
             #
             # Number of increments
-            n_inc <- 7
+            n_inc <- 8
 
             # sink output
-            #fn_sink <- file.path(".", "Results", "results_log.txt")
-            file_sink <- file(file.path(".", "Results", "results_log.txt"), open = "wt")
+            file_sink <- file(file.path(".", "Results", "results_log.txt")
+                              , open = "wt")
             sink(file_sink, type = "output", append = TRUE)
             sink(file_sink, type = "message", append = TRUE)
+
             # Log
-            message("Results Log from IEPAtools Shiny App")
+            message("Results Log from IDEMtools Shiny App")
             message(Sys.time())
             inFile <- input$fn_input
             message(paste0("file = ", inFile$name))
-
 
             # Increment the progress bar, and update the detail text.
             incProgress(1/n_inc, detail = "Data, Initialize")
@@ -147,21 +160,21 @@ shinyServer(function(input, output, session) {
             }
 
             # QC, FFG symbols
-            FFG_approved <- c("CG", "CF", "PR", "SC", "SH")
-            df_QC <- df_data
-            df_QC[df_QC==""] <- NA
-
-
-            N_FFG_wrong <- sum((na.omit(df_QC$FFG) %in% FFG_approved) == 0)
-            if(N_FFG_wrong>0){
-                message(paste0(N_FFG_wrong, "taxa have the incorrect FFG descriptor, please use the following:"))
-                message("Replace 'Collector' with 'CG'")
-                message("Replace 'Filterer' with 'CF'")
-                message("Replace 'Predator' with 'PR'")
-                message("Replace 'Scraper' with 'SC'")
-                message("Replace 'Shredder' with 'SH'")
-                message("Failure to change FFG to correct coding scheme will result in incorrect metric calculations")
-            }
+            # FFG_approved <- c("CG", "CF", "PR", "SC", "SH")
+            # df_QC <- df_data
+            # df_QC[df_QC==""] <- NA
+            #
+            #
+            # N_FFG_wrong <- sum((na.omit(df_QC$FFG) %in% FFG_approved) == 0)
+            # if(N_FFG_wrong>0){
+            #     message(paste0(N_FFG_wrong, "taxa have the incorrect FFG descriptor, please use the following:"))
+            #     message("Replace 'Collector' with 'CG'")
+            #     message("Replace 'Filterer' with 'CF'")
+            #     message("Replace 'Predator' with 'PR'")
+            #     message("Replace 'Scraper' with 'SC'")
+            #     message("Replace 'Shredder' with 'SH'")
+            #     message("Failure to change FFG to correct coding scheme will result in incorrect metric calculations")
+            # }
 
 
             # QC, N_TAXA = 0
@@ -173,18 +186,15 @@ shinyServer(function(input, output, session) {
             # QC, Exclude as TRUE/FALSE
             Exclude.T <- sum(df_data$EXCLUDE==TRUE, na.rm=TRUE)
             if(Exclude.T==0){##IF.Exclude.T.START
-                message("EXCLUDE field does not have any TRUE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
+                message("EXCLUDE column does not have any TRUE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
             }##IF.Exclude.T.END
 
             # QC, NonTarget as TRUE/FALSE
             NonTarget.F <- sum(df_data$NONTARGET==FALSE, na.rm=TRUE)
             if(NonTarget.F==0){##IF.Exclude.T.START
-                message("NONTARGET field does not have any FALSE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
+                message("NONTARGET column does not have any FALSE values. \n  Valid values are TRUE or FALSE.  \n  Other values are not recognized.")
             }##IF.Exclude.T.END
 
-
-            #appUser <- Sys.getenv('USERNAME')
-            # Not meaningful when run online via Shiny.io
 
             # Increment the progress bar, and update the detail text.
             incProgress(1/n_inc, detail = "Calculate, Metrics (takes ~ 30-45s)")
@@ -194,11 +204,14 @@ shinyServer(function(input, output, session) {
             names(df_data) <- toupper(names(df_data))
 
             # QC, Required Fields
-            col.req <- c("SAMPLEID", "TAXAID", "N_TAXA", "EXCLUDE", "INDEX_NAME"
-                         , "INDEX_REGION", "NONTARGET", "PHYLUM", "SUBPHYLUM", "CLASS", "SUBCLASS"
-                         , "INFRAORDER", "ORDER", "FAMILY", "SUBFAMILY", "TRIBE", "GENUS"
-                         , "FFG", "HABIT", "LIFE_CYCLE", "TOLVAL", "BCG_ATTR", "THERMAL_INDICATOR"
-                         , "LONGLIVED", "NOTEWORTHY", "FFG2", "TOLVAL2", "HABITAT")
+            col.req <- c("INDEX_REGION","SAMPLEID","TAXAID","EXCLUDE","NONTARGET"
+                         ,"N_TAXA","PHYLUM","ORDER","FAMILY","GENUS","BC_USGS"
+                         ,"TROPHIC_USGS","SAP_USGS","PT_USGS","O_USGS","SALINITY_USGS"
+                         ,"BAHLS_USGS","P_USGS","N_USGS","HABITAT_USGS","N_FIXER_USGS"
+                         ,"MOTILITY_USGS","SIZE_USGS","HABIT_USGS","MOTILE2_USGS"
+                         ,"TOLVAL","DIATOM_ISA","DIAT_CL","POLL_TOL","BEN_SES"
+                         ,"DIATAS_TP","DIATAS_TN","DIAT_COND","DIAT_CA","MOTILITY"
+                         ,"NF")
             col.req.missing <- col.req[!(col.req %in% toupper(names(df_data)))]
 
             # Add missing fields
@@ -211,19 +224,21 @@ shinyServer(function(input, output, session) {
 
             # create long name version of Index Regions for client comprehension
 
-            # df_data$INDEX_REGION_LONG <- ifelse(df_data$INDEX_REGION == "Bugs_N", "Northern",
-            #                                     ifelse(df_data$INDEX_REGION == "Bugs_NC", "North_Central",
-            #                                            ifelse(df_data$INDEX_REGION == "Bugs_SW", "Southwest",
-            #                                                   ifelse(df_data$INDEX_REGION == "Bugs_SE", "Southeast",
-            #                                                          "Unknown"))))
+            df_data$INDEX_REGION_LONG <- ifelse(df_data$INDEX_REGION == "HiN", "High_Lithologic_Nitrogen",
+                                                ifelse(df_data$INDEX_REGION == "LoN", "Low_Lithologic_Nitrogen",
+                                                                     "Unknown"))
 
             # columns to keep
-            keep_cols <- c("Lat", "Long", "LAKECODE", "COLLDATE", "COLLMETH")
-
+            keep_cols <- c("BFI", "LAT", "LONG", "STATIONID"
+                           , "COLLDATE", "INDEX_REGION_LONG")
 
             # metric calculation
-            df_metval <- suppressWarnings(metric.values(fun.DF = df_data, fun.Community = "bugs",
-                                                        fun.MetricNames = BugMetrics, fun.cols2keep=keep_cols, boo.Shiny = TRUE))
+            df_metval <- suppressWarnings(
+              metric.values(fun.DF = df_data
+                            , fun.Community = "algae"
+                            , fun.MetricNames = DiatomMetrics
+                            , fun.cols2keep= keep_cols
+                            , boo.Shiny = TRUE))
 
 
             # Increment the progress bar, and update the detail text.
@@ -236,37 +251,64 @@ shinyServer(function(input, output, session) {
 
             #
             # Save
-            # fn_metval <- file.path(".", "Results", "results_metval.tsv")
-            # write.table(df_metval, fn_metval, row.names = FALSE, col.names = TRUE, sep="\t")
             fn_metval <- file.path(".", "Results", "results_metval.csv")
             write.csv(df_metval, fn_metval, row.names = FALSE)
+
             #
             # QC - upper case Index.Name
-            names(df_metval)[grepl("Index.Name", names(df_metval))] <- "INDEX.NAME"
+            names(df_metval)[grepl("Index.Name"
+                                   , names(df_metval))] <- "INDEX.NAME"
 
+
+            # Increment the progress bar, and update the detail text.
+            incProgress(1/n_inc, detail = "Adjust, Metrics")
+            Sys.sleep(0.50)
+
+            # Adjust diatom metrics according to BFI field
+
+            if(df_metval$BFI < 30){
+              df_metval$pt_BC_12_adj <- df_metval$pt_BC_12 - 10.5
+            } else {
+              df_metval$pt_BC_12_adj <- df_metval$pt_BC_12 - 15.1
+            } ## END adjustment statement
 
 
             # Increment the progress bar, and update the detail text.
             incProgress(1/n_inc, detail = "Calculate, Scores")
             Sys.sleep(0.50)
 
+
+
             # Metric Scores
-            #
 
             # Thresholds
-            fn_thresh <- file.path(system.file(package="BioMonTools"), "extdata", "MetricScoring.xlsx")
+            fn_thresh <- file.path(system.file(package="BioMonTools")
+                                   , "extdata", "MetricScoring.xlsx")
             df_thresh_metric <- read_excel(fn_thresh, sheet="metric.scoring")
             df_thresh_index <- read_excel(fn_thresh, sheet="index.scoring")
 
+            # metrics for scores
+
+            myMetrics <- c("nt_LOW_N"
+                           ,"nt_LOW_P"
+                           ,"pi_Tol_13"
+                           ,"pt_Achnan_Navic"
+                           ,"pt_BC_12_adj" # Calculated in app, not BioMonTools
+                           ,"pt_O_345"
+                           ,"pt_PT_12"
+                           ,"pt_SALINITY_34"
+                           ,"pt_Sens_810")# END myMetrics
+
             # run scoring code
-            df_metsc <- metric.scores(DF_Metrics = df_metval, col_MetricNames = BugMetrics,
-                                      col_IndexName = "INDEX_NAME", col_IndexRegion = "INDEX_REGION",
-                                      DF_Thresh_Metric = df_thresh_metric, DF_Thresh_Index = df_thresh_index,
-                                      col_ni_total = "ni_total")
+            df_metsc <- metric.scores(DF_Metrics = df_metval
+                                      , col_MetricNames = myMetrics
+                                      , col_IndexName = "INDEX_NAME"
+                                      , col_IndexRegion = "INDEX_REGION"
+                                      , DF_Thresh_Metric = df_thresh_metric
+                                      , DF_Thresh_Index = df_thresh_index
+                                      , col_ni_total = "ni_total")
 
             # Save
-            # fn_metsc <- file.path(".", "Results", "results_metsc.tsv")
-            # write.table(df_metsc, fn_metsc, row.names = FALSE, col.names = TRUE, sep="\t")
             fn_metsc <- file.path(".", "Results", "results_metsc.csv")
             write.csv(df_metsc, fn_metsc, row.names = FALSE)
 
@@ -274,14 +316,16 @@ shinyServer(function(input, output, session) {
             map_data$df_metsc <- df_metsc
 
 
-
             # Increment the progress bar, and update the detail text.
             incProgress(1/n_inc, detail = "Create, summary report (~ 20 - 40 sec)")
             Sys.sleep(0.75)
 
             # Render Summary Report (rmarkdown file)
-            # rmarkdown::render(input = file.path(".", "Extras", "Summary_IL.rmd"), output_format = "word_document",
-            #                   output_dir = file.path(".", "Results"), output_file = "results_summary_report", quiet = TRUE)
+            # rmarkdown::render(input = file.path(".", "Extras", "Summary_IN.rmd")
+            #                   , output_format = "word_document"
+            #                   , output_dir = file.path(".", "Results")
+            #                   , output_file = "results_summary_report"
+            #                   , quiet = TRUE)
 
             # Increment the progress bar, and update the detail text.
             incProgress(1/n_inc, detail = "Ben's code is magical!")
@@ -298,7 +342,6 @@ shinyServer(function(input, output, session) {
                                   , full.names = TRUE)
             zip(file.path(".", "Results", "results.zip"), fn_4zip)
 
-            #zip::zipr(file.path(".", "Results", "results.zip"), fn_4zip) # used because regular utils::zip wasn't working
             # enable download button
             shinyjs::enable("b_downloadData")
 
@@ -319,27 +362,13 @@ shinyServer(function(input, output, session) {
     # Downloadable csv of selected dataset
     output$b_downloadData <- downloadHandler(
         # use index and date time as file name
-        #myDateTime <- format(Sys.time(), "%Y%m%d_%H%M%S")
 
         filename = function() {
             paste(input$MMI, "_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip", sep = "")
         },
         content = function(fname) {##content~START
-            # tmpdir <- tempdir()
-            #setwd(tempdir())
-            # fs <- c("input.csv", "metval.csv", "metsc.csv")
-            # file.copy(inFile$datapath, "input.csv")
-            # file.copy(inFile$datapath, "metval.tsv")
-            # file.copy(inFile$datapath, "metsc.tsv")
-            # file.copy(inFile$datapath, "IBI_plot.jpg")
-            # write.csv(datasetInput(), file="input.csv", row.names = FALSE)
-            # write.csv(datasetInput(), file="metval.csv", row.names = FALSE)
-            # write.csv(datasetInput(), file="metsc.csv", row.names = FALSE)
-            #
-            # Create Zip file
-            #zip(zipfile = fname, files=fs)
-            #if(file.exists(paste0(fname, ".zip"))) {file.rename(paste0(fname, ".zip"), fname)}
 
+            # Create Zip file
             file.copy(file.path(".", "Results", "results.zip"), fname)
 
             #
@@ -353,9 +382,9 @@ shinyServer(function(input, output, session) {
 
 
     # create quantile color palette to change color of markers based on index values
-    scale_range <- c(0,100)
-    at <- c(0, 25, 50, 75, 100)
-    qpal <- colorBin(c("red","yellow", "green"), domain = scale_range, bins = at)
+    # scale_range <- c(0,100)
+    # at <- c(0, 35, 55, 75, 100)
+    # qpal <- colorBin(c("red","yellow", "green"), domain = scale_range, bins = at)
 
     output$mymap <- renderLeaflet({
 
@@ -363,75 +392,104 @@ shinyServer(function(input, output, session) {
 
       df_data <- map_data$df_metsc
 
+      # create Narratives
+
+      Nar_Map <- factor(c("Exceptional"
+                          ,"Satisfactory"
+                          ,"Moderately Degraded"
+                          ,"Severely Degraded"))
+
+      Narratives <- ifelse(df_data$Index_Nar == "Exceptional", "Exceptional",
+                           ifelse(df_data$Index_Nar == "Satisfactory", "Satisfactory",
+                                  ifelse(df_data$Index_Nar == "Moderately Degraded", "Moderately Degraded",
+                                         "Severely Degraded")))
+
+      Narratives <- factor(Narratives, levels = c("Exceptional"
+                                                  ,"Satisfactory"
+                                                  ,"Moderately Degraded"
+                                                  ,"Severely Degraded"))
+
+
+      pal <- colorFactor(
+        palette = c('green', 'yellow', 'orange', 'red'),
+        domain = Narratives,
+        ordered = TRUE
+      )
+
       # create Region_Name column to combine Index_Regions
+
+      # df_data$Region_Name <- ifelse(df_data$INDEX_REGION == "Bugs_N", "N",
+      #                                     ifelse(df_data$INDEX_REGION == "Bugs_NC", "NC",
+      #                                            ifelse(df_data$INDEX_REGION == "Bugs_SW", "SW",
+      #                                                   ifelse(df_data$INDEX_REGION == "Bugs_SE", "SE",
+      #                                                          "Unknown"))))
 
       # subset data by Index_Region
 
-      N_data <- df_data %>%
-        filter(INDEX_REGION == "NORTH")
+      HiN_data <- df_data %>%
+        filter(INDEX_REGION == "HiN")
 
-      C_data <- df_data %>%
-        filter(INDEX_REGION == "CENTRAL")
-
-      S_data <- df_data %>%
-        filter(INDEX_REGION == "SOUTH")
-
+      LoN_data <- df_data %>%
+        filter(INDEX_REGION == "LoN")
 
       leaflet() %>%
         addTiles() %>%
         addProviderTiles("CartoDB.Positron", group="Positron") %>%
         addProviderTiles(providers$Stamen.TonerLite, group="Toner Lite") %>%
-        addPolygons(data = IL_BugClasses
+        addPolygons(data = IN_StateBasins
+                    , color = "blue"
+                    , weight = 5
+                    , fill = FALSE
+                    , label = IN_StateBasins$Monitoring
+                    , group = "State Basins"
+
+        ) %>%
+        addPolygons(data = IN_BugClasses
                     , color = "green"
                     , weight = 3
                     , fill = FALSE
-                    , label = IL_BugClasses$Site_Class
+                    , label = basins_shape$Location
                     , group = "Bug Site Classes"
 
         ) %>%
-        addCircleMarkers(data = N_data, lat = ~LAT, lng = ~LONG
-                         , group = "North", popup = paste("SampleID:", N_data$SAMPLEID, "<br>"
-                                                                  ,"Site Class:", N_data$INDEX_REGION, "<br>"
-                                                                  ,"Coll Date:", N_data$COLLDATE, "<br>"
-                                                                  ,"Lake ID:", N_data$LAKECODE, "<br>"
-                                                                  ,"<b> Index Value:</b>", round(N_data$Index, 2), "<br>"
-                                                                  ,"<b> Narrative:</b>", N_data$Index_Nar)
-                         , color = "black", fillColor = ~qpal(Index), fillOpacity = 1, stroke = TRUE
+        addCircleMarkers(data = HiN_data, lat = ~LAT, lng = ~LONG
+                         , group = "High Nitrogen"
+                         , popup = paste("SampleID:", HiN_data$SAMPLEID, "<br>"
+                                         ,"Site Class:", HiN_data$INDEX_REGION, "<br>"
+                                         ,"Coll Date:", HiN_data$COLLDATE, "<br>"
+                                         ,"Station ID:", HiN_data$STATIONID, "<br>"
+                                         ,"<b> Index Value:</b>", round(HiN_data$Index, 2), "<br>"
+                                         ,"<b> Narrative:</b>", HiN_data$Index_Nar)
+                         , color = "black", fillColor = ~pal(Index_Nar)
+                         , fillOpacity = 1, stroke = TRUE
                          , clusterOptions = markerClusterOptions()
 
         ) %>%
-        addCircleMarkers(data = C_data, lat = ~LAT, lng = ~LONG
-                         , group = "Central", popup = paste("SampleID:", C_data$SAMPLEID, "<br>"
-                                                                    ,"Site Class:", C_data$INDEX_REGION, "<br>"
-                                                                    ,"Coll Date:", C_data$COLLDATE, "<br>"
-                                                                    ,"Lake ID:", C_data$LAKECODE, "<br>"
-                                                                    ,"<b> Index Value:</b>", round(C_data$Index, 2), "<br>"
-                                                                    ,"<b> Narrative:</b>", C_data$Index_Nar)
-                         , color = "black", fillColor = ~qpal(Index), fillOpacity = 1, stroke = TRUE
+        addCircleMarkers(data = LoN_data, lat = ~LAT, lng = ~LONG
+                         , group = "Low Nitrogen"
+                         , popup = paste("SampleID:", LoN_data$SAMPLEID, "<br>"
+                                         ,"Site Class:", LoN_data$INDEX_REGION, "<br>"
+                                         ,"Coll Date:", LoN_data$COLLDATE, "<br>"
+                                         ,"Station ID:", LoN_data$STATIONID, "<br>"
+                                         ,"<b> Index Value:</b>", round(LoN_data$Index, 2), "<br>"
+                                         ,"<b> Narrative:</b>", LoN_data$Index_Nar)
+                         , color = "black", fillColor = ~pal(Index_Nar)
+                         , fillOpacity = 1, stroke = TRUE
                          , clusterOptions = markerClusterOptions()
 
         ) %>%
-        addCircleMarkers(data = S_data, lat = ~LAT, lng = ~LONG
-                         , group = "South", popup = paste("SampleID:", S_data$SAMPLEID, "<br>"
-                                                                    ,"Site Class:", S_data$INDEX_REGION, "<br>"
-                                                                    ,"Coll Date:", S_data$COLLDATE, "<br>"
-                                                                    ,"Lake ID:", S_data$LAKECODE, "<br>"
-                                                                    ,"<b> Index Value:</b>", round(S_data$Index, 2), "<br>"
-                                                                    ,"<b> Narrative:</b>", S_data$Index_Nar)
-                         , color = "black", fillColor = ~qpal(Index), fillOpacity = 1, stroke = TRUE
-                         , clusterOptions = markerClusterOptions()
-
-        ) %>%
-        addLegend(pal = qpal,
-                  values = scale_range,
+        addLegend(pal = pal,
+                  values = Narratives,
                   position = "bottomright",
-                  title = "Index Scores",
+                  title = "Index Narratives",
                   opacity = 1) %>%
-        addLayersControl(overlayGroups = c("North", "Central", "South", "Bug Site Classes"),
-                         baseGroups = c("OSM (default)", "Positron", "Toner Lite"),
-                         options = layersControlOptions(collapsed = TRUE))%>%
-        # hideGroup(c("Bug Site Classes")) %>%
-        addMiniMap(toggleDisplay = TRUE) %>%
+        addLayersControl(overlayGroups = c("High Nitrogen", "Low Nitrogen"
+                                           , "State Basins", "Bug Site Classes")
+                         ,baseGroups = c("OSM (default)"
+                                         , "Positron", "Toner Lite")
+                         ,options = layersControlOptions(collapsed = TRUE))%>%
+        hideGroup(c("State Basins", "Bug Site Classes")) %>%
+        addMiniMap(toggleDisplay = TRUE)%>%
         onRender( # used for making download button https://stackoverflow.com/questions/47343316/shiny-leaflet-easyprint-plugin
           "function(el, x) {
             L.easyPrint({
@@ -441,7 +499,7 @@ shinyServer(function(input, output, session) {
               hideControlContainer: true
             }).addTo(this);
             }"
-        )
+        ) ##onRender~END
 
       }) ##renderLeaflet~END
 
@@ -512,19 +570,27 @@ shinyServer(function(input, output, session) {
 
       # shape palette
       shape_pal <- c("Index" = 16
-                     ,"nt_ECT" = 15
-                     ,"pi_Dipt" = 15
-                     ,"pi_ffg_filt" = 15
-                     ,"nt_habit_climb" = 15
-                     ,"pi_tv_toler" = 15)
+                     ,"nt_LOW_N" = 15
+                     ,"nt_LOW_P" = 15
+                     ,"pi_Tol_13" = 15
+                     ,"pt_Achnan_Navic" = 15
+                     ,"pt_BC_12_adj" = 15 # Calculated in app, not BioMonTools
+                     ,"pt_O_345" = 15
+                     ,"pt_PT_12" = 15
+                     ,"pt_SALINITY_34" = 15
+                     ,"pt_Sens_810" = 15)
 
       # size palette
       size_pal <- c("Index" = 10
-                    ,"nt_ECT" = 5
-                    ,"pi_Dipt" = 5
-                    ,"pi_ffg_filt" = 5
-                    ,"nt_habit_climb" = 5
-                    ,"pi_tv_toler" = 5)
+                    ,"nt_LOW_N" = 5
+                    ,"nt_LOW_P" = 5
+                    ,"pi_Tol_13" = 5
+                    ,"pt_Achnan_Navic" = 5
+                    ,"pt_BC_12_adj" = 5 # Calculated in app, not BioMonTools
+                    ,"pt_O_345" = 5
+                    ,"pt_PT_12" = 5
+                    ,"pt_SALINITY_34" = 5
+                    ,"pt_Sens_810" = 5)
 
       ggplot(df_grph_input, aes(x=Variable, y = Score, shape = Variable))+
         geom_point(aes(size = Variable))+
@@ -560,8 +626,10 @@ shinyServer(function(input, output, session) {
       df_sub_regions <- df_all_scores[df_all_scores$INDEX_REGION == site_region,]
 
       ggplot()+
-        geom_boxplot(data = df_sub_regions, aes(x = INDEX_REGION, y = Index), width = 0.25)+
-        geom_point(data = df_selected_site, aes(x = INDEX_REGION, y = Index), size = 5)+
+        geom_boxplot(data = df_sub_regions
+                     , aes(x = INDEX_REGION, y = Index), width = 0.25)+
+        geom_point(data = df_selected_site
+                   , aes(x = INDEX_REGION, y = Index), size = 5)+
         labs(y = "Index Scores of Input Data Frame",
              x = "Index Region")+
         ylim(0,100)+
