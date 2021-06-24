@@ -307,6 +307,11 @@ shinyServer(function(input, output, session) {
                                       , DF_Thresh_Index = df_thresh_index
                                       , col_ni_total = "ni_total")
 
+            df_metsc <- df_metsc %>%
+              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "HIN", "HiN")) %>%
+              mutate(INDEX_REGION = replace(INDEX_REGION, INDEX_REGION == "LON", "LoN"))
+
+
             # Save
             fn_metsc <- file.path(".", "Results", "results_metsc.csv")
             write.csv(df_metsc, fn_metsc, row.names = FALSE)
@@ -447,7 +452,7 @@ shinyServer(function(input, output, session) {
                     , color = "green"
                     , weight = 3
                     , fill = FALSE
-                    , label = basins_shape$Location
+                    , label = IN_BugClasses$Location
                     , group = "Bug Site Classes"
 
         ) %>%

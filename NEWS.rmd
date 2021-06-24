@@ -18,8 +18,8 @@ cat(paste0("Last Update: ",Sys.time()))
 ```
 
 
-IEPAtools v0.1.0.900 (2021-04-12)
+IDEMtools v0.1.0.900 (2021-06-24)
 ================
 
-* Forked code from https://github.com/Blocktt/IEPAtools
 * Creation date
+* Using dev version of BioMonTools (waiting on merge to master)
