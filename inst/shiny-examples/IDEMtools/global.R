@@ -23,8 +23,8 @@ library(htmlwidgets)
 
 
 # Drop-down boxes
-MMIs <- c("IEPA_2021_Bugs")
-Community <- c("bugs")
+MMIs <- c("IDEM_2021_Diatoms")
+Community <- c("algae")
 
 
 # File Size
@@ -32,13 +32,50 @@ Community <- c("bugs")
 # setting this option. Here we'll raise limit to 10MB.
 options(shiny.maxRequestSize = 25*1024^2)
 
-# define which metrics michigan wants to keep in indices
+# define which metrics to keep in indices
 
-BugMetrics <- c("nt_ECT"
-                ,"pi_Dipt"
-                ,"pi_ffg_filt"
-                ,"nt_habit_climb"
-                ,"pi_tv_toler")# END BugMetrics
+DiatomMetrics <- c("nt_LOW_N"
+                   ,"nt_LOW_P"
+                   ,"pi_Tol_13"
+                   ,"pt_Achnan_Navic"
+                   ,"pt_BC_12"
+                   ,"pt_O_345"
+                   ,"pt_PT_12"
+                   ,"pt_SALINITY_34"
+                   ,"pt_Sens_810")# END DiatomMetrics
+
+# BugMetrics <- c("nt_total"
+#                 ,"pi_EphemNoCaeBae"
+#                 ,"pi_ffg_filt"
+#                 ,"pi_ffg_shred"
+#                 ,"pi_OET"
+#                 ,"pi_Pleco"
+#                 ,"pi_tv_intol"
+#                 ,"pt_EPT"
+#                 ,"pt_ffg_pred"
+#                 ,"pt_NonIns"
+#                 ,"pt_POET"
+#                 ,"pt_tv_intol"
+#                 ,"pt_tv_toler"
+#                 ,"pt_volt_semi"
+#                 ,"x_Becks")# END BugMetrics
+#
+# FishMetrics <- c("nt_total"
+#                  ,"pi_EphemNoCaeBae"
+#                  ,"pi_ffg_filt"
+#                  ,"pi_ffg_shred"
+#                  ,"pi_OET"
+#                  ,"pi_Pleco"
+#                  ,"pi_tv_intol"
+#                  ,"pt_EPT"
+#                  ,"pt_ffg_pred"
+#                  ,"pt_NonIns"
+#                  ,"pt_POET"
+#                  ,"pt_tv_intol"
+#                  ,"pt_tv_toler"
+#                  ,"pt_volt_semi"
+#                  ,"x_Becks")# END FishMetrics
+
 
 #### GIS/Map data ####
 
@@ -47,9 +84,12 @@ dir_data <- file.path(".","GIS_Data")
 jsfile <- "https://rawgit.com/rowanwins/leaflet-easyPrint/gh-pages/dist/bundle.js"
 #https://stackoverflow.com/questions/47343316/shiny-leaflet-easyprint-plugin
 
-## Illinois 2021 Bug IBI Site Classes
+## Indiana State Basins
+IN_StateBasins <- rgdal::readOGR(file.path(dir_data, "IN_StateBasins_20210113.shp"))
 
-IL_BugClasses <- rgdal::readOGR(file.path(dir_data, "IEPA_SiteClasses.shp"))
+## Indiana 2017 Bug IBI Site Classes
+
+IN_BugClasses <- rgdal::readOGR(file.path(dir_data, "IN_BugClasses_20210113.shp"))
 
 
 
