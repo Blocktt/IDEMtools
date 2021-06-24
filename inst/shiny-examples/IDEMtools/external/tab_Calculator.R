@@ -5,8 +5,6 @@ function(){
              sidebarPanel(
                # 0. Progress
                h3("App Steps")
-               # , htmlOutput("vig")
-               #, p("1_LoadData, 2_CalcMetrics, 3_CalcIndex, 4_DownloadResults")
                , h4("1. Load File")
                , h5("Select file parameters")
                , radioButtons('sep', 'Separator',
@@ -34,7 +32,7 @@ function(){
                , h4("2. Calculate IBI")
                # , selectInput("MMI", "Select an IBI to calculate:",
                #               choices=MMIs)
-               , h5("IEPA Bug IEPA - Specify Site Class in INDEX_REGION field")
+               , h5("IDEM Diatom IBI - Specify Site Class in INDEX_REGION field")
                , actionButton("b_Calc", "Calculate Metric Values and Scores")
                , tags$hr()
                , h4("3. Download Results")
