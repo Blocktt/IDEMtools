@@ -1,0 +1,25 @@
+---
+title: "NEWS-IEPAtools"
+output: github_document
+---
+
+<!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "NEWS-"
+)
+```
+
+```{r, echo = FALSE}
+cat(paste0("Last Update: ",Sys.time()))
+```
+
+
+IEPAtools v0.1.0.900 (2021-04-12)
+================
+
+* Forked code from https://github.com/Blocktt/IEPAtools
+* Creation date

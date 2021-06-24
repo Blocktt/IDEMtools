@@ -1,0 +1,470 @@
+
+
+
+<div id="instructions" class="section level1">
+<h1>Instructions</h1>
+<p>IEPAtools was developed to calculate benthic macroinvertebrate metrics and Indices of Biotic Integrity (IBI) for lakes in Illinois. Detailed documentation of IBI development can be downloaded <a href="https://github.com/Blocktt/IEPAtools/tree/main/reports">here</a>. Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution.</p>
+<p>The Instructions are divided into three sections: 1) preparing the input file; 2) app operation; and 3) frequently asked questions (FAQ). Links to an example input file and a document containing more detailed information on preparing the input file are also provided.</p>
+<p>This app was developed by Ben Block from Tetra Tech, Inc. (<a href="mailto:Ben.Block@tetratech.com" class="email">Ben.Block@tetratech.com</a>), with underlying R code written by Ben Block and Erik Leppo (<a href="mailto:Erik.Leppo@tetratech.com" class="email">Erik.Leppo@tetratech.com</a>). Please contact Ben Block should any issues or questions arise.</p>
+<div id="foreword" class="section level2">
+<h2>Foreword</h2>
+<p>Tetra Tech, Inc. developed the IEPAtools shiny app for the Illinois Environmental Protection Agency. It allows IEPA and their partners to calculate IBI scores for benthic macroinvertebrate samples. The new IBIs will improve IEPA’s diagnostic ability to identify degradation in biological integrity and water quality. The app is streamlined and easy to operate, and only requires an input dataset to function. Shiny apps are interactive web applications that serve as graphical user interfaces. They are linked to R, which is an open source programming language and software environment for statistical computing.</p>
+</div>
+<div id="preparing-the-input-file" class="section level2">
+<h2>Preparing the input file</h2>
+<p>IEPAtools requires input files to be in a tabular format, saved as either comma-separated values (CSV) (most commonly used) or tab-separated (.txt or .tsv) files. Table 1 contains a list of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown (some column headings have underscores).</p>
+<p>Click here to view an <a href="https://github.com/Blocktt/IEPAtools/tree/main/inst/shiny-examples/IEPAtools/Examples">EXAMPLE INPUT FILE</a>.</p>
+<p>If you are unsure how to download a data file from GitHub, <a href="https://www.youtube.com/watch?v=GIJdfuAoqFI">watch this short video</a> or contact Ben Block (<a href="mailto:ben.block@tetratech.com" class="email">ben.block@tetratech.com</a>).</p>
+<p>You are now ready to run your file through the IBI calculator!</p>
+<div id="table-1.-list-of-required-fields.-column-names-must-be-capitalized-and-match-the-spelling-and-symbology-exactly-as-shown." class="section level3">
+<h3>Table 1. List of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown.</h3>
+<table class="table" style="width: auto !important; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+Column Name
+</th>
+<th style="text-align:left;">
+Data Type
+</th>
+<th style="text-align:left;">
+Domain (allowable entries)
+</th>
+<th style="text-align:left;">
+Null Allowed
+</th>
+<th style="text-align:left;">
+Comment
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+INDEX_NAME
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+IEPA_2021_Bugs
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Only one allowable entry (IDEM_2017_Bugs or IDEM_2017_Fish).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+INDEX_REGION
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+North, Central, South
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Must match one of the three allowable entries (which tells the R code which IBI to apply to each sample).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAKECODE
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SAMPLEID
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Unique sample identifier (typically comprised of the site name, sample date, and replicate number).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAT
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+real number, in decimal degrees
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+NAD83 datum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LONG
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+real number, in decimal degrees
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+NAD83 datum. Longitude values in North America (west of the prime meridian) should be negative .
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+COLLDATE
+</td>
+<td style="text-align:left;">
+date
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Date on which the sample was collected.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+COLLMETH
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TAXAID
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Taxonomic identification of organisms in each sample.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+N_TAXA
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+non-negative real number
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Number of individuals.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EXCLUDE
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+TRUE, FALSE
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Redundant (non-distinct) taxa should marked “TRUE”.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NONTARGET
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+TRUE, FALSE
+</td>
+<td style="text-align:left;">
+No
+</td>
+<td style="text-align:left;">
+Non-target taxa should be marked “TRUE”.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHYLUM
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CLASS
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORDER
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Several IBI metrics are based on Order (e.g., ECT taxa richness).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FAMILY
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Entries should be consistent with the phylogeny.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SUBFAMILY
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRIBE
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GENUS
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FFG
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+CG, CF, PR, SC, SH (select mutiple)
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Primary Functional Feeding Group. Choose from, can have multiple entries separated by comma: collector-gatherer (CG), collector-filterer (CF), predator (PR), scraper (SC), or shredder (SH).
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TOLVAL
+</td>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+number ranging from 0-10
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Taxa with tolerance values ranging from 0 to 3 are considered ‘intolerant’ to anthropogenic disturbance and are included in the ‘intolerant’ metric calculations. Those with values ranging from 7 to 10 are included in the ‘tolerant’ metrics.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HABIT
+</td>
+<td style="text-align:left;">
+text
+</td>
+<td style="text-align:left;">
+SW, CN, SP, CB, BU (select multiple)
+</td>
+<td style="text-align:left;">
+Yes
+</td>
+<td style="text-align:left;">
+Priamry insect habits. Choose from, can have multiple entries separated by comma: Swimmers (SW), Clingers (CN), Sprawlers (SP), Climbers (CB), Burrowers (BU)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="app-instructions" class="section level2">
+<h2>App Instructions</h2>
+<p>Once open, the user will see the IBI calculator interface. The user should follow the onscreen instructions as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Load file</p>
+<ul>
+<li>An example input file can be downloaded from Github <a href="https://github.com/Blocktt/IEPAtools/tree/main/inst/shiny-examples/IEPAtools/Examples">EXAMPLE LINK</a></li>
+<li>Choose Separator. The separator indicates how the data is stored. Comma indicates the input file is a comma-separated file (.csv). Tab indicates the input file is a tab-separated file (.txt or .tsv). Finally, Semicolon indicates the input file is a semicolon-separated file which is uncommon in the United States but common in Western-European countries. Be certain that the designated separator is not used in any of the text fields (e.g., for multiple FFG, separate with a semicolon).</li>
+<li>Choose Quote. The quote indicates how the data is stored. Double quote is the most common.</li>
+<li>Choose file to upload. Hit the browse button and search for the input file.</li>
+<li>Once uploaded, make sure data is correct in the viewer. If the incorrect Separator or Quote is chosen, you may receive an error or the data may look incorrect in the viewer.</li>
+</ul></li>
+<li><p>Calculate IBI</p></li>
+<li><p>Download results</p>
+<ul>
+<li>Select the button to download a zip file with inputs and results.</li>
+<li>Check ‘results_log.txt’ for any warnings or messages. Note, some warnings are automatically generated by R. Feel free to reach out to Ben Block (<a href="mailto:Ben.Block@tetratech.com" class="email">Ben.Block@tetratech.com</a>) for any questions related to warnings.</li>
+</ul></li>
+<li><p>Use interactive map and plots for data exploration</p>
+<ul>
+<li>Navigate to the top of the page and click on the “Data Explorer” tab.</li>
+<li>Prior to metric scores calculation, a map will not be visible.</li>
+<li>Once metric scores are calculated, a map will become visible.</li>
+<li>Sites are clustered when zoomed out for increased visibility - zoom for detail.</li>
+<li>Sites are color coded by their Index Score value - click on a site for more info.</li>
+<li>The map can be filtered based on INDEX_REGION using the checkbox group in the upper right.</li>
+</ul></li>
+</ol>
+</div>
+<div id="frequently-asked-questions-and-troubleshooting" class="section level2">
+<h2>Frequently asked questions and troubleshooting</h2>
+<ol style="list-style-type: decimal">
+<li>Why am I getting an error saying that I am missing columns even when I am not?
+<ul>
+<li>You may have incorrectly spelled a given column. Try writing the column in all capital letters. Also, some columns (e.g., INDEX_REGION) require an underscore to separate the two words.</li>
+</ul></li>
+<li>Why does my data look strange in the data viewer?
+<ul>
+<li>You likely have the incorrect Separator or Quote selected. Otherwise, there may be commas in text fields when the comma separator is selected.</li>
+</ul></li>
+<li>The IBI calculation is taking forever to calculate, has the app frozen?
+<ul>
+<li>Even though R works remarkably fast, a large dataset will cause the app to slow down. The estimate is approximately 30 seconds for small datasets; however, this could extend to a few minutes for large datasets.</li>
+</ul></li>
+<li>Why is there no map shown in the “Sites and Scores Map” tab?
+<ul>
+<li>The map requires the results of the IBI calculator to render.</li>
+</ul></li>
+</ol>
+</div>
+</div>

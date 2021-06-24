@@ -1,0 +1,56 @@
+---
+title: "Background Information"
+date: "`r format(Sys.time(), '%Y-%m-%d %H:%M:%S')`"
+always_allow_html: true
+output:
+  html_fragment:
+    toc: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(results='asis', echo=FALSE, warning=FALSE, message = FALSE)
+# needed for trouble shooting
+boo_DEBUG <- FALSE
+if(boo_DEBUG==TRUE){
+  # myConfig <- file.path(system.file(package="ContDataQC"), "extdata", "config.ORIG.R")
+  # source(myConfig)
+}## IF ~ boo_DEBUG ~ END
+```
+
+# Background
+An Index of Biotic Integrity (IBI) was developed for macroinvertebrate assemblages in lakes in Illinois.
+
+The IBI calibration project resulted in an index applicable for three benthic macorinvertebrate site classes. The benthic macroinvertebrate site classes were defined by XYZ and included the Northern, Central, and Southern site classes.
+
+Reports detailing the development of the macroinvertebrate IBI can be found [here](https://github.com/Blocktt/IDEMtools/tree/main/reports).
+
+## Intended application
+The IBI is intended to be applied to samples collected from freshwater lakes in Illinois using IEPA sampling methods. For samples used in IBI calibration (Jessup 2015), Illinois lake and reservoir benthic samples were collected from five different habitats. Three samples were taken from each habitat. When possible, the samples were equally spread throughout the lake or reservoir representing the different zones. The three samples were composited in the field into one sample per habitat. Of those five habitats, the IBI was calibrated using a virtual combination of results from the combined littoral samples (dubbed LittoralABC).
+
+As of 2021, IEPA has a new sampling method (dubbed CompositeF) which is combination of the three littoral habitat in the field rather than virtually after the fact. These methods are being evaluated during the IBI validation phase of work.
+
+
+If you apply the IBI to samples that do not meet the criteria listed above, results should be interpreted with caution.
+
+## Input metrics and scoring formulae
+Macroinvertebrate IBIs were calibrated for three regions - the Northern, Central, and Southern site classes (shown in Figure 1). Table 1 shows the input metrics and scoring formulae for the three IBIs. 
+
+### Table 1. Metrics and scoring formulae for the IEPA IBI.
+```{r table_1}
+library(readxl)
+library(knitr)
+library(kableExtra)
+# state directories
+table.dir <- "tables"
+table.file <- "Instruction_Tables.xlsx"
+tab1.dir <- "Bug_Metrics"
+
+table1 <- read_excel(file.path(table.dir, table.file), sheet = tab1.dir
+                     , na = c("NA", ""), trim_ws = TRUE, skip = 0
+                     , col_names = TRUE)  
+
+
+table1 %>%
+  kable() %>%
+  kable_styling(full_width = F, position = "left")
+```

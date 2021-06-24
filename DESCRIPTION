@@ -1,0 +1,36 @@
+Package: IEPAtools
+Type: Package
+Title: Used to calculate Illinois EPA IBI metrics and scores, and produce output files 
+Version: 0.1.0.900
+Authors@R: c(
+  person("Ben", "Block", email="Ben.Block@tetratech.com", role=c("cre", "aut")),
+  person("Erik W.","Leppo", role="aut"),
+  person("Ben", "Jessup", role= "aut"))
+Maintainer: Ben Block <Ben.Block@tetratech.com>
+Description: Tools to calculate multi-metric index in R and Shiny.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Imports:
+  BioMonTools,
+  shiny,
+  DT,
+  ggplot2,
+  readxl,
+  reshape2,
+  dplyr,
+  maps,
+  tidyr,
+  shinyjs,
+  knitr,
+  kableExtra,
+  rmarkdown,
+  leaflet,
+  mapview,
+  stringr,
+  shinythemes,
+  flextable,
+  htmlwidgets
+VignetteBuilder: knitr
+URL: https://github.com/Blocktt/IEPAtools
