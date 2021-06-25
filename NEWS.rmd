@@ -17,6 +17,11 @@ knitr::opts_chunk$set(
 cat(paste0("Last Update: ",Sys.time()))
 ```
 
+IDEMtools v0.1.1.9001 (2021-06-25)
+================
+
+* Added the Site Class Identifier tab
+* Posted to shinyapps.io and began QC process
 
 IDEMtools v0.1.0.900 (2021-06-24)
 ================

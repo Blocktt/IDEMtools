@@ -1,7 +1,7 @@
-Package: IEPAtools
+Package: IDEMtools
 Type: Package
-Title: Used to calculate Illinois EPA IBI metrics and scores, and produce output files 
-Version: 0.1.0.900
+Title: Used to calculate Indiana DEM IBI metrics and scores, and produce output files 
+Version: 0.1.1.9001
 Authors@R: c(
   person("Ben", "Block", email="Ben.Block@tetratech.com", role=c("cre", "aut")),
   person("Erik W.","Leppo", role="aut"),
@@ -33,4 +33,4 @@ Imports:
   flextable,
   htmlwidgets
 VignetteBuilder: knitr
-URL: https://github.com/Blocktt/IEPAtools
+URL: https://github.com/Blocktt/IDEMtools
