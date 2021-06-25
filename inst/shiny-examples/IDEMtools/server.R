@@ -666,8 +666,8 @@ shinyServer(function(input, output, session) {
 
       # Read user imported file
       df_input_sc <- read.csv(inFile$datapath, header = TRUE,
-                           sep = input$sep,
-                           quote = input$quote, stringsAsFactors = FALSE)
+                           sep = input$sep_sci,
+                           quote = input$quote_sci, stringsAsFactors = FALSE)
 
       required_columns <- c("COMID"
                             ,"STATIONID")

@@ -1,0 +1,13 @@
+name: IDEMtools
+title: IDEMtools
+username:
+account: tetratech-wtr-wne
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4320422
+bundleId: 4757374
+url: https://tetratech-wtr-wne.shinyapps.io/IDEMtools/
+when: 1624650159.37363
+lastSyncTime: 1624650159.37363
+asMultiple: FALSE
+asStatic: FALSE

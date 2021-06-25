@@ -37,7 +37,7 @@ If you are unsure how to download a data file from GitHub, [watch this short vid
 
 You are now ready to run your file through the IBI calculator!
 
-### Table 1. List of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown.
+#### Table 1. List of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown.
 ```{r table_1}
 library(readxl)
 library(knitr)
@@ -108,7 +108,7 @@ For more information on the derivation of these site classes, please read the [I
 Note, only COMIDs from the state of Indiana can be used. If you would like COMIDs from other, nearby states, please contact Ben Block (Ben.Block@tetratech.com) and he can update the available list.
 
 
-### Table 2. Background information on StreamCat variables
+#### Table 2. Background information on StreamCat variables
 ```{r table_2}
 library(readxl)
 library(knitr)
@@ -129,7 +129,7 @@ table2 %>%
 ```
 
 
-### Table 3. List of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown.
+#### Table 3. List of required fields. Column names must be capitalized and match the spelling and symbology exactly as shown.
 ```{r table_3}
 library(readxl)
 library(knitr)

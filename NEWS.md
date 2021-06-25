@@ -3,9 +3,14 @@ NEWS-IEPAtools
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-04-23 10:07:54
+    #> Last Update: 2021-06-25 16:27:50
 
-# IEPAtools v0.1.0.900 (2021-04-12)
+# IDEMtools v0.1.1.9001 (2021-06-25)
 
--   Forked code from <https://github.com/Blocktt/IEPAtools>
+-   Added the Site Class Identifier tab
+-   Posted to shinyapps.io and began QC process
+
+# IDEMtools v0.1.0.900 (2021-06-24)
+
 -   Creation date
+-   Using dev version of BioMonTools (waiting on merge to master)

@@ -6,25 +6,25 @@ function(){
                h3("Site Class Identifier")
                , h4("1. Load File")
                , h5("Select file parameters")
-               , radioButtons('sep', 'Separator',
+               , radioButtons('sep_sci', 'Separator',
                               c(Comma=',',
                                 Semicolon=';',
                                 Tab='\t'),
                               ',')
-               , radioButtons('quote', 'Quote',
+               , radioButtons('quote_sci', 'Quote',
                               c(None='',
                                 'Double Quote'='"',
                                 'Single Quote'="'"),
                               '"')
                , fileInput('fn_input_siteclass', 'Choose file to upload',
                            accept = c(
-                             'text/csv',
-                             'text/comma-separated-values',
-                             'text/tab-separated-values',
-                             'text/plain',
-                             '.csv',
-                             '.tsv'
-                           )
+                             'text/csv'
+                             ,'text/comma-separated-values'
+                             ,'text/tab-separated-values'
+                             ,'text/plain'
+                             ,'.csv'
+                             ,'.tsv'
+                             ,'.tab')
                )##fileInput~END
 
                , h4("2. Assign Site Classes")
