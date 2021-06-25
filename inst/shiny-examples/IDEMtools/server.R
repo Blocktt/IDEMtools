@@ -13,10 +13,6 @@ shinyServer(function(input, output, session) {
     # map and plots require df_metsc
     map_data <- reactiveValues(df_metsc = NULL)
 
-    ##############################
-    ###### Insturctions Page #####
-    ##############################
-
     # Misc Names ####
     output$fn_input_display <- renderText({input$fn_input}) ## renderText~END
 
@@ -380,10 +376,8 @@ shinyServer(function(input, output, session) {
         #, contentType = "application/zip"
     )##downloadData~END
 
-    ########################
-    ##### Map Creation #####
-    ########################
 
+    # Data Explorer Tab ####
 
     # create quantile color palette to change color of markers based on index values
     # scale_range <- c(0,100)
@@ -543,7 +537,7 @@ shinyServer(function(input, output, session) {
 
 
 
-    ########### Data Explorer Tab ######################
+    ## Plots ####
 
     df_sitefilt <- reactive({
       req(!is.null(map_data$df_metsc))
@@ -650,4 +644,189 @@ shinyServer(function(input, output, session) {
 
     }) ## renderPlot ~ END
 
+    # Site Class Identifier ####
+
+    ## df_import ####
+    output$df_site_import_DT <- renderDT({
+      # input$df_import will be NULL initially. After the user selects
+      # and uploads a file, it will be a data frame with 'name',
+      # 'size', 'type', and 'datapath' columns. The 'datapath'
+      # column will contain the local filenames where the data can
+      # be found.
+
+      inFile <- input$fn_input_siteclass
+
+      # shiny::validate(
+      #   need(inFile != "", "Please select a data set") # used to inform the user that a data set is required
+      # )
+
+      if (is.null(inFile)){
+        return(NULL)
+      }##IF~is.null~END
+
+      # Read user imported file
+      df_input_sc <- read.csv(inFile$datapath, header = TRUE,
+                           sep = input$sep,
+                           quote = input$quote, stringsAsFactors = FALSE)
+
+      required_columns <- c("COMID"
+                            ,"STATIONID")
+
+      column_names <- colnames(df_input_sc)
+
+      # QC Check for column names
+      col_req_match <- required_columns %in% column_names
+      col_missing <- required_columns[!col_req_match]
+
+      shiny::validate(
+        need(all(required_columns %in% column_names)
+             , paste0("Error\nChoose correct data separator; otherwise, you may have missing required columns\n"
+                      , paste("Required columns missing from the data:\n")
+                      , paste("* ", col_missing, collapse = "\n")))
+      )##END ~ validate() code
+
+      # Add "Results" folder if missing
+      boo_Results <- dir.exists(file.path(".", "Results_SiteClass"))
+      if(boo_Results==FALSE){
+        dir.create(file.path(".", "Results_SiteClass"))
+      }
+
+      # Remove all files in "Results" folder
+      fn_results <- list.files(file.path(".", "Results_SiteClass"), full.names=TRUE)
+      file.remove(fn_results)
+
+      # Write to "Results" folder - Import as TSV
+      fn_input <- file.path(".", "Results_SiteClass", "data_import_siteclassidentifier.tsv")
+      write.table(df_input_sc, fn_input, row.names=FALSE
+                  , col.names=TRUE, sep="\t")
+
+      # Copy to "Results" folder - Import "as is"
+      file.copy(input$fn_input_siteclass$datapath
+                , file.path(".", "Results_SiteClass", input$fn_input_siteclass$name))
+
+      return(df_input_sc)
+
+    }##expression~END
+    , filter="top", options=list(scrollX=TRUE)
+
+    )##output$df_import_DT~END
+
+
+    ## c_Calc ####
+    observeEvent(input$c_Calc, {
+      shiny::withProgress({
+        #
+        # Number of increments
+        n_inc <- 4
+
+        # sink output
+        file_sink <- file(file.path(".", "Results_SiteClass", "results_log_sci.txt")
+                          , open = "wt")
+        sink(file_sink, type = "output", append = TRUE)
+        sink(file_sink, type = "message", append = TRUE)
+
+        # Log
+        message("Results Log from IDEMtools Site Class Identifier")
+        message(Sys.time())
+        inFile <- input$fn_input_siteclass
+        message(paste0("file = ", inFile$name))
+
+        # Increment the progress bar, and update the detail text.
+        incProgress(1/n_inc, detail = "Data, Initialize")
+        Sys.sleep(0.25)
+
+        # Read in saved file (known format)
+        df_data <- NULL  # set as null for IF QC check prior to import
+        fn_input <- file.path(".", "Results_SiteClass", "data_import_siteclassidentifier.tsv")
+        df_data <- read.delim(fn_input, stringsAsFactors = FALSE, sep="\t")
+
+        # QC, FAIL if TRUE
+        if (is.null(df_data)){
+          return(NULL)
+        }
+
+        # Increment the progress bar, and update the detail text.
+        incProgress(1/n_inc, detail = "Join with COMIDs")
+        Sys.sleep(0.5)
+
+        # convert Field Names to UPPER CASE
+        names(df_data) <- toupper(names(df_data))
+
+        # Read in saved COMID file
+        df_COMIDs <- NULL  # set as null for IF QC check prior to import
+        fn_input <- file.path(".", "Extras", "tables", "df_COMIDs.csv")
+        df_COMIDs <- read.csv(fn_input, stringsAsFactors = FALSE, sep=",")
+
+
+        ### Join tables ####
+
+        df_combined <- dplyr::left_join(df_data, df_COMIDs
+                                         , by = "COMID")
+
+
+        ### QC Results ####
+
+        N_SiteClass_zeros <- sum(is.na(df_combined$SiteClass))
+        if(N_SiteClass_zeros>0){
+          message(paste("Some input COMIDs did not match with the site class identifier table.\n")
+                  ,paste("Number of mismatches:", N_SiteClass_zeros,"\n")
+                  ,paste("Please check that input COMIDs are correct.\n")
+                  ,paste("Contact Ben Block (Ben.Block@tetratech.com) if problem persists.")
+          )# message~ END
+        }#IF statement ~END
+
+#         if(N_SiteClass_zeros>0){
+#           message("Some input COMIDs did not match with the site class identifier table.
+#                   QC check the COMIDs for accuracy.
+#                   Contact Ben Block (Ben.Block@tetratech.com) if problem persists.")
+#         }#IF statement ~END
+
+
+        # Increment the progress bar, and update the detail text.
+        incProgress(1/n_inc, detail = "Join Completed!")
+        Sys.sleep(1)
+
+        # Save
+        fn_siteclasses <- file.path(".", "Results_SiteClass"
+                               , "results_SiteClassesIdentified.csv")
+        write.csv(df_combined, fn_siteclasses, row.names = FALSE)
+
+        # Increment the progress bar, and update the detail text.
+        incProgress(1/n_inc, detail = "Create, Zip")
+        Sys.sleep(0.50)
+
+        # Create zip file
+        fn_4zip <- list.files(path = file.path(".", "Results_SiteClass")
+                              , pattern = "^results_"
+                              , full.names = TRUE)
+        zip(file.path(".", "Results_SiteClass", "results.zip"), fn_4zip)
+
+        # enable download button
+        shinyjs::enable("c_downloadData")
+
+        sink() # console
+        sink() # message
+        #
+      }##expr~withProgress~END
+      )##withProgress~END
+    }##expr~ObserveEvent~END
+    )##observeEvent~b_CalcIBI~END
+
+
+    ## Download dataset ####
+    output$c_downloadData <- downloadHandler(
+      # file name
+
+      filename = function() {
+        paste("Site_Class_Identifer_Results_"
+              , format(Sys.time(), "%Y%m%d_%H%M%S"), ".zip", sep = "")
+      },
+      content = function(fname) {##content~START
+
+        # Create Zip file
+        file.copy(file.path(".", "Results_SiteClass", "results.zip"), fname)
+
+        #
+      }##content~END
+    )##downloadData~END
 })##shinyServer~END
