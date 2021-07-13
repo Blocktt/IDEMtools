@@ -19,9 +19,11 @@ if(boo_DEBUG==TRUE){
 
 # Instructions
 
-This function allows the user to upload station information and determine to which site class (HiN or LoN) a site belongs. Sites are assigned to site classes using the watershed-scale mean lithological nitrogen content (NWs) from [StreamCat](https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset-0). **See Instructions tab for input dataset guidelines**
+This function allows the user to upload station information and determine to which site class (HiN or LoN) a site belongs. Sites are assigned to site classes using the watershed-scale mean lithological nitrogen content (NWs) from [StreamCat](https://www.epa.gov/national-aquatic-resource-surveys/streamcat-dataset-0). **See Instructions tab for input dataset guidelines.**
 
 * Sites with NWs >= 0.089 % are classified as **HiN**
 * Sites with NWs < 0.089 % are classified as **LoN**
+
+In addition, sites will be assigned the appropriate BFIcat (catchment-scale Base Flow Index) based on the COMID. BFIcat for each site is necessary for sample adjustment of the pt_BC_12_adj metric. **See Background tab for metric calculations.**
 
 Follow the steps to the left to upload a site & COMID table. For more information on the derivation of these site classes, please read the [IDEM Diatom IBI report](https://github.com/Blocktt/ShinyAppDocuments/tree/main/IDEMtools/Reports). Feel free to download an [Example file](https://github.com/Blocktt/ShinyAppDocuments/tree/main/IDEMtools/Example_Files) to understand how the function works.
