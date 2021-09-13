@@ -1,0 +1,26 @@
+Results Log from IDEMtools Shiny App
+2021-09-13 10:57:30
+file = BioMonTools_Input_IDEM_20210624.csv
+EXCLUDE column does not have any TRUE values. 
+  Valid values are TRUE or FALSE.  
+  Other values are not recognized.
+Warning in eval(expr, env) :
+  Metrics related to the following fields are invalid:
+   PHYLUM
+Chosen IBI from Shiny app = IDEM_2021_Diatoms
+Warning in sink() : no sink to remove
+Warning: `funs()` was deprecated in dplyr 0.8.0.
+Please use a list of either functions or lambdas: 
+
+  # Simple named list: 
+  list(mean = mean, median = median)
+
+  # Auto named with `tibble::lst()`: 
+  tibble::lst(mean, median)
+
+  # Using lambdas
+  list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_warnings()` to see where this warning was generated.
+
+

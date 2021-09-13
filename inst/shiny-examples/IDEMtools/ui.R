@@ -18,7 +18,7 @@ tab_DataExplorer <- source("external/tab_DataExplorer.R", local = TRUE)$value
 tab_SiteClasses <- source("external/tab_SiteClasses.R", local = TRUE)$value
 
 # Define UI
-shinyUI(navbarPage(theme = shinytheme("cerulean"), "Indiana DEM IBI Calculator v0.1.1.9001"
+shinyUI(navbarPage(theme = shinytheme("cerulean"), "Indiana DEM IBI Calculator v0.1.1.9005"
                    ,tab_Background()
                    ,tab_Instructions()
                    ,tab_Calculator()
