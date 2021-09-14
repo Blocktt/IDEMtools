@@ -3,7 +3,11 @@ NEWS-IEPAtools
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-09-13 11:05:09
+    #> Last Update: 2021-09-14 08:37:48
+
+# IDEMtools v0.1.1.9005 (2021-09-14)
+
+-   Added screenshot functionality on Data Explorer
 
 # IDEMtools v0.1.1.9001 (2021-06-25)
 

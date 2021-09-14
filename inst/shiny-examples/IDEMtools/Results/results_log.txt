@@ -1,5 +1,5 @@
 Results Log from IDEMtools Shiny App
-2021-09-13 10:57:30
+2021-09-14 08:24:40
 file = BioMonTools_Input_IDEM_20210624.csv
 EXCLUDE column does not have any TRUE values. 
   Valid values are TRUE or FALSE.  

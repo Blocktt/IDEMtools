@@ -1,7 +1,7 @@
 Package: IDEMtools
 Type: Package
 Title: Used to calculate Indiana DEM IBI metrics and scores, and produce output files 
-Version: 0.1.1.9001
+Version: 0.1.1.9006
 Authors@R: c(
   person("Ben", "Block", email="Ben.Block@tetratech.com", role=c("cre", "aut")),
   person("Erik W.","Leppo", role="aut"),
@@ -31,6 +31,6 @@ Imports:
   stringr,
   shinythemes,
   flextable,
-  htmlwidgets
+  capture
 VignetteBuilder: knitr
 URL: https://github.com/Blocktt/IDEMtools

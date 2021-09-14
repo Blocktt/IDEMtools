@@ -432,6 +432,7 @@ shinyServer(function(input, output, session) {
 
       leaflet() %>%
         addTiles() %>%
+        addProviderTiles(providers$Esri.WorldStreetMap, group="Esri WSM") %>%
         addProviderTiles("CartoDB.Positron", group="Positron") %>%
         addProviderTiles(providers$Stamen.TonerLite, group="Toner Lite") %>%
         addPolygons(data = IN_StateBasins
@@ -483,21 +484,22 @@ shinyServer(function(input, output, session) {
                   opacity = 1) %>%
         addLayersControl(overlayGroups = c("High Nitrogen", "Low Nitrogen"
                                            , "State Basins", "Bug Site Classes")
-                         ,baseGroups = c("OSM (default)"
+                         ,baseGroups = c("Esri WSM"
                                          , "Positron", "Toner Lite")
                          ,options = layersControlOptions(collapsed = TRUE))%>%
         hideGroup(c("State Basins", "Bug Site Classes")) %>%
-        addMiniMap(toggleDisplay = TRUE)%>%
-        onRender( # used for making download button https://stackoverflow.com/questions/47343316/shiny-leaflet-easyprint-plugin
-          "function(el, x) {
-            L.easyPrint({
-              sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
-              filename: 'mymap',
-              exportOnly: true,
-              hideControlContainer: true
-            }).addTo(this);
-            }"
-        ) ##onRender~END
+        addMiniMap(toggleDisplay = TRUE, tiles = providers$Esri.WorldStreetMap)
+      # %>%
+      #   onRender( # used for making download button https://stackoverflow.com/questions/47343316/shiny-leaflet-easyprint-plugin
+      #     "function(el, x) {
+      #       L.easyPrint({
+      #         sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+      #         filename: 'mymap',
+      #         exportOnly: true,
+      #         hideControlContainer: true
+      #       }).addTo(this);
+      #       }"
+      #   ) ##onRender~END
 
       }) ##renderLeaflet~END
 
