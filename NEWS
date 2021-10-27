@@ -3,7 +3,11 @@ NEWS-IEPAtools
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-10-04 10:00:02
+    #> Last Update: 2021-10-27 13:35:02
+
+# IDEMtools v0.1.2.9000 (2021-10-27)
+
+-   Embedded ArcGIS StoryMap into its own tab
 
 # IDEMtools v0.1.1.9005 (2021-09-14)
 
