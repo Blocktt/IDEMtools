@@ -21,7 +21,7 @@ The following instructions are separted into two major sections. The first secti
 
 # IBI Calculator Instructions
 
-IDEMtools was developed to calculate diatom metrics and Indices of Biotic Integrity (IBI) for perrenial, wadeable streams in Indiana. Detailed documentation of IBI development can be downloaded [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/IDEMtools/Reports). Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution. **Future versions of this application will include the existing IDEM fish and macroinvertebrate IBIs as well as the upcoming cool-water IBIs - Stay tuned!**
+IDEMtools was developed to calculate diatom metrics and Indices of Biotic Integrity (IBI) for perrenial, wadeable streams in Indiana. Detailed documentation of IBI development can be downloaded [here](https://github.com/Blocktt/ShinyAppDocuments/tree/main/IDEMtools/Reports). Users can run any data through the IBI calculator and get a result. However, if samples do not meet the criteria listed on the Background page, results should be interpreted with caution. 
 
 The Instructions are divided into three sections: 1) preparing the input file; 2) app operation; and 3) frequently asked questions (FAQ). Links to an example input file and a document containing more detailed information on preparing the input file are also provided.
 
