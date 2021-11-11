@@ -3,7 +3,7 @@ NEWS-IEPAtools
 
 <!-- NEWS.md is generated from NEWS.Rmd. Please edit that file -->
 
-    #> Last Update: 2021-10-27 14:10:01
+    #> Last Update: 2021-11-10 16:45:37
 
 # IDEMtools v0.1.2.9000 (2021-10-27)
 
